@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
@@ -76,10 +76,10 @@ export const SinglePage = () => {
         <div className={styles.raitingWrapper}>
           <div className={styles.raiting}>
             {currentBook.rating ? (
-              <div>
-                {' '}
-                <Raiting raiting={currentBook.raiting} />{' '}
-              </div>
+              <React.Fragment>
+                <Raiting raiting={currentBook.raiting} />
+                <span>{currentBook.rating}</span>
+              </React.Fragment>
             ) : (
               'еще нет оценок'
             )}

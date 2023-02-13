@@ -252,6 +252,8 @@ h5 {
   line-height: 28px;
   letter-spacing: 0.1px;
   color: var(--dark-clr);
+  display: flex;
+  gap: 20px;
 }
 
 .raitingWrapper {
