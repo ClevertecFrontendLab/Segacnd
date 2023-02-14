@@ -10,11 +10,9 @@ async function getCategoriesApi() {
 export function* getCategoriesSaga() {
   try {
     const res = yield call(() => getCategoriesApi());
-  
-    yield put(getCategoriesActions.getCategories(res));
-    
-  } catch (error) {
 
-    yield put(getCategoriesActions.failedFetchingCategories())
+    yield put(getCategoriesActions.getCategories({ categories: res }));
+  } catch (error) {
+    yield put(getCategoriesActions.failedFetchingCategories());
   }
 }

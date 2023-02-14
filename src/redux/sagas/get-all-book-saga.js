@@ -10,11 +10,9 @@ async function getAllBookAPI() {
 export function* getAllBookSaga() {
   try {
     const res = yield call(() => getAllBookAPI());
-  
-    yield put(getAllBookActions.getAllBooks(res));
-    
-  } catch (error) {
 
-    yield put(getAllBookActions.failedFetchingAllBooks())
+    yield put(getAllBookActions.getAllBooks({ books: res }));
+  } catch (error) {
+    yield put(getAllBookActions.failedFetchingAllBooks());
   }
 }

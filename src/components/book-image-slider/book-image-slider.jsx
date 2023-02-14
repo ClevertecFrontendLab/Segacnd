@@ -14,10 +14,10 @@ import 'swiper/css/navigation';
 export const BookImageSlider = ({ images }) => {
   
   const [activeImgId, setActiveImgId] = useState(0);
-  const isSingleImg = !images || images.length < 2;
   const [width] = useWindowSize();
   const [showPagination, setShowPagination] = useState(false);
-
+  const isSingleImg = !images || images.length < 2;
+  
   
   useEffect(() => {
     if (width < 1000 && !showPagination) {

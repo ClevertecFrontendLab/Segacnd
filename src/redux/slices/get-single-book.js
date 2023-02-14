@@ -2,27 +2,26 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   book: {},
-  
+
   status: 'init',
-  
 };
 
 export const GetSingleBookSlice = createSlice({
   name: 'singleBooks',
   initialState,
   reducers: {
-    startFetchingOneBook: (state, action) => {
-        const st = state;
-  
-        st.status = 'loading';
-      },
+    startFetchingOneBook: (state) => {
+      const st = state;
+
+      st.status = 'loading';
+    },
     getOneBook: (state, action) => {
       const st = state;
 
-      st.book = action.payload;
-      st.status =  'success';
+      st.book = action.payload.book;
+      st.status = 'success';
     },
-    failedFetchingOneBook: (state, action) => {
+    failedFetchingOneBook: (state) => {
       const st = state;
 
       st.status = 'error';

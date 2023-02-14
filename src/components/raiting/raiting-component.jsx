@@ -1,5 +1,3 @@
-import { useState } from 'react';
-
 import { StarClear, StarFull } from '../../assets/icons';
 
 import styles from './raiting-component.module.css';

@@ -11,7 +11,7 @@ export function* getOneBookSaga(action) {
   try {
     const res = yield call(() => getOneBookApi(action.payload));
 
-    yield put(getSingleBookActions.getOneBook(res));
+    yield put(getSingleBookActions.getOneBook({ book: res }));
   } catch (error) {
     yield put(getSingleBookActions.failedFetchingOneBook());
   }

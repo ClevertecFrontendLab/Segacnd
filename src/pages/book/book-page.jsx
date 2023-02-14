@@ -3,21 +3,23 @@ import { useNavigate } from 'react-router-dom';
 
 import { CatIcon } from '../../assets/icons';
 import { Raiting } from '../../components/raiting/raiting-component';
+import { categoriesSelector, viewerSelector } from '../../redux/selectors';
 import { OrderButton } from '../../ui/order-button/order-button';
 
 import styles from './book-page.module.css';
 
 export const BookPage = ({ book }) => {
   const navigate = useNavigate();
-  const viewType = useSelector((state) => state.viewer.viewType);
-  const categories = useSelector((state) => state.categories.categories);
+  const {viewType} = useSelector(viewerSelector);
+  const {categories} = useSelector(categoriesSelector);
+
   const selectedCategoryName = categories.find(el => el.name.includes(book.categories))
+  const bookedToDate = book?.booking?.dateOrder.slice(5,10).replace('-', '.') || 0;
 
   const goToSinglePage = (id) => {
     navigate(`/books/${selectedCategoryName.path}/${id}`);
   };
   
-  const bookedToDate = book?.booking?.dateOrder.slice(5,10).replace('-', '.') || 0
 
   return (
     <section

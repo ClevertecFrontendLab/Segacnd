@@ -4,25 +4,24 @@ const initialState = {
   books: [],
   // status = 'init' | 'loading' | 'error' | 'success'
   status: 'init',
-  
 };
 
 export const GetAllBookSlice = createSlice({
   name: 'allBooks',
   initialState,
   reducers: {
-    startFetchingAllBooks: (state, action) => {
-        const st = state;
-  
-        st.status = 'loading';
-      },
+    startFetchingAllBooks: (state) => {
+      const st = state;
+
+      st.status = 'loading';
+    },
     getAllBooks: (state, action) => {
       const st = state;
 
-      st.books = action.payload;
-      st.status =  'success';
+      st.books = action.payload.books;
+      st.status = 'success';
     },
-    failedFetchingAllBooks: (state, action) => {
+    failedFetchingAllBooks: (state) => {
       const st = state;
 
       st.status = 'error';

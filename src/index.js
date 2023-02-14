@@ -9,6 +9,7 @@ import { Terms } from './components/terms';
 import { MainPage } from './pages/main';
 import { SinglePage } from './pages/single-page';
 import { store } from './redux/store';
+import { routeNames } from './routing/routs';
 
 import './index.css';
 
@@ -22,12 +23,12 @@ root.render(
         <Routes>
           <Route path='/' element={<Layout />}>
             <Route element={<LayoutMainPage />}>
-              <Route path='/' element={<Navigate to='/books/all' />} />
-              <Route path='/books/:category' element={<MainPage />} />
-              <Route path='/terms' element={<Terms contentView='terms' />} />
-              <Route path='/contract' element={<Terms contentView='contract' />} />
+              <Route path='/' element={<Navigate to={routeNames.ROOT_PATH} />} />
+              <Route path={routeNames.CATEGORY_BOOKS} element={<MainPage />} />
+              <Route path={routeNames.TERMS} element={<Terms contentView='terms' />} />
+              <Route path={routeNames.CONTRACT} element={<Terms contentView='contract' />} />
             </Route>
-            <Route path='/books/:category/:bookId' element={<SinglePage />} />
+            <Route path={routeNames.SINGLE_PAGE} element={<SinglePage />} />
           </Route>
         </Routes>
       </HashRouter>

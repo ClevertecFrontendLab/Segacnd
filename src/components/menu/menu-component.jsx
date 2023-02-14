@@ -3,23 +3,25 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 
 import { ListArrowIcon } from '../../assets/icons';
-// import { books, categories } from '../../assets/mock-data';
+import { categoriesSelector, getAllBookSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getCategoriesActions } from '../../redux/slices/get-categories-slice';
+import { routeNames } from '../../routing/routs';
 
 import styles from './menu.module.css';
 
 export const MenuComponent = ({ isBurgerMenu = false, testIds }) => {
-  const books = useSelector((state) => state.getAll.books);
-  const menuState = useSelector((state) => state.viewer.menuState);
-  const burgerState = useSelector((state) => state.viewer.burgerState);
+  const { books } = useSelector(getAllBookSelector);
+  const { menuState, burgerState } = useSelector(viewerSelector);
+  const { categories } = useSelector(categoriesSelector);
+
   const dispatch = useDispatch();
   const menuRef = useRef();
-  const categories = useSelector((state) => state.categories.categories);
 
   useEffect(() => {
     dispatch(getCategoriesActions.startFetchingCategories());
   }, [dispatch]);
+
   const navigationClassNames = useMemo(() => {
     let classnames = `${styles.root}`;
 
@@ -40,9 +42,10 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }) => {
   }
 
   const location = useLocation();
-  const isBookSectionSelected = location.pathname.includes('books');
-  const isActiveTerms = location.pathname.includes('terms');
-  const isActiveContract = location.pathname.includes('contract');
+  const isBookSectionSelected = location.pathname.includes(routeNames.BOOKS);
+  const isActiveTerms = location.pathname.includes(routeNames.TERMS);
+  const isActiveContract = location.pathname.includes(routeNames.CONTRACT);
+
   const booksCounter = (category) => books.filter((el) => el.categories.includes(category)).length;
 
   useEffect(() => {
@@ -79,8 +82,8 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }) => {
               </li>
               {categories &&
                 categories.map((el) => (
-                  <li key={el.id} >
-                    <NavLink to={`/books/${el.path}`} >
+                  <li key={el.id}>
+                    <NavLink to={`/books/${el.path}`}>
                       {el.name} <span className={styles.bookQuantity}>{booksCounter(el.name)}</span>
                     </NavLink>
                   </li>

@@ -4,13 +4,14 @@ import { NavLink } from 'react-router-dom';
 import { BurgerMenuIcon, BurgerMenuIconClose } from '../../assets/icons';
 import avatar from '../../assets/images/avatar.png';
 import logoImg from '../../assets/images/logo.jpg';
+import { viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { MenuComponent } from '../menu';
 
 import styles from './header.module.css';
 
 export const HeaderComponent = () => {
-  const burgerState = useSelector((state) => state.viewer.burgerState);
+  const { burgerState } = useSelector(viewerSelector);
   const dispatch = useDispatch();
 
   function openMenu() {

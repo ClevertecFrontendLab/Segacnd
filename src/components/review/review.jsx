@@ -3,12 +3,13 @@ import { Raiting } from '../raiting/raiting-component';
 
 import styles from './review.module.css';
 
-export const Review = ({ name, createdAt, text, raiting }) => (
+export const Review = ({ createdAt, text, raiting, user }) => (
   <div className={styles.root}>
+    
     <div className={styles.title}>
-      <div className={styles.imgWrapper}>{UserAvatar}</div>
+      <div className={styles.imgWrapper}>{user.avatarUrl  ? <img src={user.avatarUrl} alt="" /> : UserAvatar}</div>
       <div className={styles.userInfoWrapper}>
-        <p className={styles.userName}>Ivan Babayan</p>
+        <p className={styles.userName}>{user.firstName} {user.lastName}</p>
       <p className={styles.date}>{createdAt.slice(0, 10) || 0}</p>
       </div>
       
