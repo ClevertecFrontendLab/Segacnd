@@ -1,0 +1,137 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap');
+:root {
+  --white-clr: #ffffff;
+  --dark-clr: #363636;
+  --grey-omg-clr: #727272;
+  --grey-text-clr: #a7a7a7;
+  --grey-border-clr: #bfc4c9;
+
+  --active-clr: #ff740f;
+  --active-clr-bg: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+
+  --hover-boxshadow-btn: 0px 2px 5px rgba(54, 54, 54, 0.1);
+  --pressed-boxshadow-btn: 0px 3px 4px rgba(222, 125, 11, 0.2), 0px 1px 10px rgba(249, 89, 8, 0.2);
+  --default-boxshadow: 0px 2px 4px rgba(191, 196, 201, 0.2), 0px 3px 4px rgba(191, 196, 201, 0.18),
+    0px 1px 5px rgba(191, 196, 201, 0.24);
+  --fw-bold: 700;
+  --fw-medium: 600;
+  --fw-small: 400;
+}
+
+body {
+  font-family: 'Montserrat';
+  height: 100%;
+  justify-content: center;
+  scroll-behavior: smooth;
+  text-rendering: optimizeSpeed;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: #ffffff;
+  color: #363636;
+  letter-spacing: 0.1px;
+}
+
+body > #root {
+  max-width: 2000px;
+  margin-inline: auto;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+ul,
+ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body,
+h1,
+h2,
+h3,
+h4,
+p,
+ul[class],
+ol[class],
+li,
+figure,
+figcaption,
+blockquote,
+dl,
+dd {
+  margin: 0;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:not([class]) {
+  text-decoration-skip-ink: auto;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+article > * + * {
+  margin-top: 1em;
+}
+
+input,
+button,
+textarea,
+select {
+  padding: 0;
+  font: inherit;
+}
+
+.active {
+  font-weight: 700;
+  background: var(--active-clr-bg);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.active span {
+  background: var(--dark-clr);
+
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.swiper-pagination.swiper-pagination-horizontal {
+  opacity: 0;
+}
+
+.swiper-slide > img {
+  clip-path: inset(0% 0% 0% 0% round 5px);
+}
+
+@media screen and (max-width: 1150px) {
+  div.swiper,
+  div.swiper-container {
+    height: 100%;
+  }
+
+  .swiper-pagination.swiper-pagination-horizontal {
+    opacity: 1;
+    padding: 4px;
+  }
+
+  .swiper-slide > img {
+    clip-path: inset(0% 0% 0% 0% round 10px);
+  }
+}

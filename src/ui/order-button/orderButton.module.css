@@ -1,0 +1,70 @@
+.button {
+  width: 100%;
+  margin-top: auto;
+  padding: 11px 23px;
+  border: none;
+  outline: none;
+  background: var(--active-clr-bg);
+  border-radius: 20px;
+
+  height: 100%;
+
+  font-weight: var(--fw-bold);
+  font-size: 12px;
+  line-height: 18px;
+
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+
+  color: var(--white-clr);
+}
+
+.button:active {
+  background: var(--active-clr-bg);
+  box-shadow: var(--pressed-boxshadow-btn);
+}
+
+.disableButton {
+  width: 100%;
+  margin-top: auto;
+  padding: 11px 23px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  height: 100%;
+  background: #f9f9fa;
+
+  border: 1px solid var(--grey-border-clr);
+  border-radius: 20px;
+
+  font-weight: var(--fw-medium);
+  font-size: 12px;
+  line-height: 18px;
+
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+
+  color: var(--grey-text-clr);
+}
+
+.isOrderedButton {
+  width: 100%;
+  margin-top: auto;
+  padding: 11px 23px;
+  border: none;
+  outline: none;
+  border-radius: 20px;
+  background: #f9f9fa;
+
+  border: 1px solid var(--grey-border-clr);
+
+  font-weight: var(--fw-medium);
+  font-size: 12px;
+  line-height: 18px;
+  letter-spacing: 0.2px;
+  text-transform: uppercase;
+
+  height: 100%;
+
+  color: #A7A7A7;
+}

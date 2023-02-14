@@ -1,0 +1,49 @@
+.errorWrapperHidden {
+  display: none;
+}
+.errorWrapper {
+  position: absolute;
+  top: 9%;
+  left: 10%;
+  right: 10%;
+  background: #feebea;
+  border: 1.5px solid #f42c4f;
+  border-radius: 5px;
+  height: 80px;
+  display: flex;
+
+  justify-content: start;
+  align-items: center;
+  gap: 1vw;
+  padding: 2vw;
+  z-index: 5;
+}
+.errorTitle {
+  flex: 1;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  color: #363636;
+  vertical-align: middle;
+}
+.errorWrapper button{
+    outline: none;
+    background: none;
+    border: none;
+}
+@media screen and (max-width: 900px){
+    .errorTitle {
+        font-size: 14px;
+        line-height: 18px;
+        
+      }
+      .errorWrapper svg{
+        width: 24px;
+        height: 24px;
+    }
+}
+@media screen and (max-width: 600px){
+    .errorWrapper{
+        align-items: flex-start;
+    }
+}
