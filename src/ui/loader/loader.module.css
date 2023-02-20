@@ -1,0 +1,13 @@
+.loaderWrapper{
+    position: absolute;
+    inset: 0;
+    background: rgba(54, 54, 54, 0.3);
+    backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+.hideLoader{
+    display: none;
+}

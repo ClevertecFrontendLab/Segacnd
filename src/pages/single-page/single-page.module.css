@@ -139,7 +139,7 @@ table td:first-child {
 
 .crumb {
   background: #f9f9fa;
-  padding: 23px 140px;
+  padding: 23px 10%;
   margin-bottom: 42px;
   color: var(--grey-text-clr);
   font-weight: var(--fw-small);
@@ -325,7 +325,7 @@ h5 {
   }
 
   .crumb {
-    padding: 20px 64px;
+    padding: 20px 10%;
     font-weight: var(--fw-small);
     font-size: 14px;
     line-height: 18px;
@@ -384,7 +384,7 @@ h5 {
     font-weight: 500;
     font-size: 12px;
     line-height: 16px;
-    padding: 20px 16px;
+    padding: 20px 10%;
     font-weight: var(--fw-small);
     font-size: 12px;
     line-height: 18px;
