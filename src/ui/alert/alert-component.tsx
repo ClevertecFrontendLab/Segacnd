@@ -1,6 +1,8 @@
 import classNames from 'classnames';
 
-import { CloseButtonIcon, ErrorIcon, SuccessIcon } from '../../assets/icons';
+import CloseIcon from '../../assets/images/icons/close-action-icon.svg';
+import SuccessIcon from '../../assets/images/icons/success-icon.svg';
+import ErrorIcon from '../../assets/images/icons/warning-circle-icon.svg';
 import { AlertSelector } from '../../redux/selectors';
 import { alertActions } from '../../redux/slices/alert-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -20,10 +22,12 @@ export const AlertComponent = () => {
         [styles.alertHidden]: !isShow,
       })}
     >
-      <div className={styles.alertIcon}>{alertStatus === 'error' ? ErrorIcon : SuccessIcon}</div>
+      <div className={styles.alertIcon}>
+        <img src={alertStatus === 'error' ? ErrorIcon : SuccessIcon} alt='alert icon' />
+      </div>
       <p className={styles.alertTitle}> {text}</p>
       <button type='button' onClick={() => dispatch(alertActions.closeAlert())}>
-        {CloseButtonIcon}
+        <img src={CloseIcon} alt='alert icon' />
       </button>
     </div>
   );

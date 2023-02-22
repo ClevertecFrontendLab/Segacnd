@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
-import { ListArrowIcon } from '../../assets/icons';
+import ArrowIcon from '../../assets/images/icons/arrow-up-icon.svg';
 import { BookImageSlider } from '../../components/book-image-slider';
 import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { ICategories } from '../../interfases';
@@ -30,22 +30,15 @@ export const SinglePage = () => {
     return categories.find((el) => el.path === category);
   };
 
-  
-  function changecommentsState() {
+  const changecommentsState = () => {
     dispatch(viewTypeActions.commentToggle(!commentsState));
-  }
- // Use this effect for develop to avoid problem with double call in strict mode 
+  };
+
   useEffectOnce(() => {
     if (bookId) {
-      dispatch(getSingleBookActions.startFetchingOneBook(+bookId));
+      dispatch(getSingleBookActions.startFetchingOneBook(Number(bookId)));
     }
   });
- // Use this effect for prod
-  // useEffect(() => {
-  //   if (bookId) {
-  //     dispatch(getSingleBookActions.startFetchingOneBook(+bookId));
-  //   }
-  // }, [bookId, dispatch]);
 
   const bookedToDate = book?.booking?.dateOrder.slice(5, 10).replace('-', '.') || 0;
 
@@ -168,7 +161,7 @@ export const SinglePage = () => {
                   }
                   type='button'
                 >
-                  {ListArrowIcon}
+                  <img src={ArrowIcon} alt='arrow icon' />
                 </button>
               </h5>
               <hr className={styles.line} />

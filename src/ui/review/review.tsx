@@ -1,4 +1,4 @@
-import { UserAvatar } from '../../assets/icons';
+import AvatarIcon from '../../assets/images/icons/avatar.svg';
 import { IComment } from '../../interfases';
 import { BASE_URL } from '../../not-env';
 import { Raiting } from '../raiting/raiting-component';
@@ -18,7 +18,8 @@ export const Review = ({ createdAt, text, rating, user, id }: IComment) => {
     <div className={styles.root}>
       <div className={styles.title}>
         <div className={styles.imgWrapper}>
-          {user.avatarUrl ? <img src={`${BASE_URL}${user.avatarUrl}`} alt='' /> : UserAvatar}
+          <img src={user.avatarUrl ? `${BASE_URL}${user.avatarUrl}` : `${AvatarIcon}`} alt='' />
+         
         </div>
         <div className={styles.userInfoWrapper}>
           <p className={styles.userName}>

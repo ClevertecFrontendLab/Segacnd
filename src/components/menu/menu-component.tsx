@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
-import { ListArrowIcon } from '../../assets/icons';
+import ArrowIcon from '../../assets/images/icons/arrow-up-active-icon.svg';
 import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { categoriesSelector, getAllBookSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
@@ -26,19 +26,11 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
 
   const dispatch = useAppDispatch();
 
-  // Use this effect for develop to avoid problem with double call in strict mode
   useEffectOnce(() => {
     if (!categories.length) {
       dispatch(getCategoriesActions.startFetchingCategories());
     }
   });
-
-  // Use this effect for prod
-  // useEffect(() => {
-  //   if (!categories.length) {
-  //     dispatch(getCategoriesActions.startFetchingCategories());
-  //   }
-  // }, [dispatch, categories]);
 
   useEffect(() => {
     if (menuRef.current) {
@@ -46,9 +38,9 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
     }
   }, [burgerState, menuRef]);
 
-  function toggleMenu() {
+  const toggleMenu = () => {
     dispatch(viewTypeActions.menuToggle(!menuState));
-  }
+  };
 
   const isBookSectionSelected = location.pathname.includes(routeNames.BOOKS);
   const isActiveTerms = location.pathname.includes(routeNames.TERMS);
@@ -86,7 +78,7 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
                   menuState ? `${styles.open} ${styles.iconWrapper} ` : `${styles.iconWrapper}  ${styles.close}`
                 }
               >
-                {status !== 'error' && ListArrowIcon}
+                {status !== 'error' && <img src={ArrowIcon} alt='toggle menu' />}
               </div>
             </div>
             <ul className={menuState ? `${styles.openUl} ` : ` ${styles.closeUl}`}>

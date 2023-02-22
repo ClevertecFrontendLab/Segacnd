@@ -1,8 +1,9 @@
 import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
-import { BurgerMenuIcon, BurgerMenuIconClose } from '../../assets/icons';
-import avatar from '../../assets/images/avatar.png';
+import AvatarIcon from '../../assets/images/icons/avatar.svg';
+import BurgerMenuIcon from '../../assets/images/icons/burger-icon.svg';
+import CloseIcon from '../../assets/images/icons/menu-close-icon.svg';
 import logoImg from '../../assets/images/logo.jpg';
 import { viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
@@ -16,14 +17,16 @@ export const HeaderComponent = () => {
   const { burgerState, accountModal } = useAppSelector(viewerSelector);
   const dispatch = useDispatch();
 
-  function openMenu() {
+  const openMenu = () => {
     dispatch(viewTypeActions.burgerToggle(!burgerState));
-  }
+  };
 
   return (
     <div className={styles.root}>
       <div className={styles.burgerButton} onClick={openMenu} aria-hidden='true'>
-        <div data-test-id='button-burger'>{burgerState ? BurgerMenuIconClose : BurgerMenuIcon}</div>
+        <div data-test-id='button-burger'>
+          <img src={burgerState ? CloseIcon : BurgerMenuIcon} alt='menu-icon' />
+        </div>
       </div>
 
       <MenuComponent
@@ -42,7 +45,7 @@ export const HeaderComponent = () => {
       >
         <p className={styles.greeting}>Привет, Иван!</p>
         <div className={styles.avatarWrapper}>
-          <img src={avatar} alt='user avatar' />
+          <img src={AvatarIcon} alt='user avatar' />
         </div>
       </button>
       <AccountModal />

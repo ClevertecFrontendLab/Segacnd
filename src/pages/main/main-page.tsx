@@ -1,7 +1,8 @@
 import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
-import { ColumnIcon, GridIcon } from '../../assets/icons';
+import GridIcon from '../../assets/images/icons/grid-icon.svg';
+import RowIcon from '../../assets/images/icons/row-icon.svg';
 import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { categoriesSelector, getAllBookSelector, searchInputSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
@@ -22,22 +23,9 @@ export const MainPage = () => {
 
   const selectedCategoryName = categories.find((el) => el.path === category);
 
-  // Use this effect for develop to avoid problem with double call in strict mode
   useEffectOnce(() => {
     dispatch(getAllBookActions.startFetchingAllBooks());
   });
-
-  // Use this effect for prod
-  // useEffect(() => {
-  //   let ignore = false
-
-  //   if(!ignore) {
-
-  //     dispatch(getAllBookActions.startFetchingAllBooks());
-  //   }
-
-  //   return () => {ignore = true}
-  // }, [dispatch]);
 
   useEffect(() => {
     if (status === 'success') {
@@ -72,7 +60,7 @@ export const MainPage = () => {
               onClick={() => dispatch(viewTypeActions.viewChanger({ viewType: 'grid' }))}
               aria-hidden='true'
             >
-              {GridIcon}
+              <img src={GridIcon} alt='grid icon' />
             </div>
             <div
               className={viewType === 'grid' ? styles.svgWrapper : styles.activeWrapper}
@@ -80,7 +68,7 @@ export const MainPage = () => {
               aria-hidden='true'
               data-test-id='button-menu-view-list'
             >
-              {ColumnIcon}
+              <img src={RowIcon} alt='row icon' />
             </div>
           </div>
         </div>
@@ -89,13 +77,13 @@ export const MainPage = () => {
       {!filteredBooks.length &&
         status !== 'loading' &&
         (query === '' ? (
-          <h1 data-test-id='empty-category' className={styles.nothingFind}>
+          <h3 data-test-id='empty-category' className={styles.nothingFind}>
             В этой категории книг ещё нет
-          </h1>
+          </h3>
         ) : (
-          <h1 data-test-id='search-result-not-found' className={styles.nothingFind}>
+          <h3 data-test-id='search-result-not-found' className={styles.nothingFind}>
             По запросу ничего не найдено
-          </h1>
+          </h3>
         ))}
       <div className={viewType === 'grid' ? `${styles.cardGridtWrapper}` : `${styles.cardFlexWrapper} `}>
         {filteredBooks.map((el) => (

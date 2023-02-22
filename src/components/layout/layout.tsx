@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { SocialMediaIcons } from '../../assets/icons';
+import SocialMediaIcons from '../../assets/images/icons/icon-social.svg'
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { useAppDispatch } from '../../redux/store';
 import { AlertComponent } from '../../ui/alert/alert-component';
@@ -33,7 +33,9 @@ export const Layout = () => {
 
         <footer>
           <div>© 2020-2023 Cleverland. Все права защищены.</div>
-          <div>{SocialMediaIcons}</div>
+          <div>
+            <img src={SocialMediaIcons} alt='social-media'/>
+          </div>
         </footer>
       </div>
     </React.Fragment>

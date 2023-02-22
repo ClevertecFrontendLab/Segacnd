@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
-import { CatIcon } from '../../assets/icons';
+import CatIcon from '../../assets/images/icons/cat-icon.svg';
 import { useWindowSize } from '../../hooks/use-window-size.hook';
 import { IImage } from '../../interfases';
 
@@ -35,15 +35,11 @@ export const BookImageSlider = ({ images }: IBookImageSliderProps) => {
       }
     >
       <div className={styles.mainImageWrapper} {...(showPagination ? {} : { 'data-test-id': 'slide-big' })}>
-        {images ? (
-          <img
-            className={`${styles.mainImage} `}
-            src={`https://strapi.cleverland.by${images[activeImgId]?.url}`}
-            alt='book-cover'
-          />
-        ) : (
-          CatIcon
-        )}
+        <img
+          className={`${images ? styles.mainImage : styles.mainIconImage} `}
+          src={images ? `https://strapi.cleverland.by${images[activeImgId]?.url}` : CatIcon}
+          alt='book-cover'
+        />
       </div>
 
       <div className={`${styles.swiperWrapper} ${isSingleImg ? styles.hiddenSwiperWrapper : ''}`}>

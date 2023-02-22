@@ -62,7 +62,7 @@ ul li {
   max-width: 170px;
 }
 
-.activePath svg {
+.activePath img {
   color: var(--active-clr);
 }
 
@@ -85,12 +85,12 @@ ul li a {
   color: var(--dark-clr);
 }
 
-.open svg {
+.open img {
   transform: rotate(180deg);
   animation: rotateTwo 0.2s linear;
 }
 
-.close svg {
+.close img {
   transform: rotate(0deg);
   animation: rotate 0.2s linear;
 }

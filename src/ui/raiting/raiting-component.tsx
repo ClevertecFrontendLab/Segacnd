@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
-import { StarClear } from '../../assets/icons';
+import StarActiveIcon from '../../assets/images/icons/star-active-icon.svg';
+import StarIcon from '../../assets/images/icons/star-icon.svg';
 import { IRating } from '../../interfases';
 
 import styles from './raiting-component.module.css';
@@ -21,12 +22,13 @@ export const Raiting = ({ rating }: IRating) => {
             type='button'
             // eslint-disable-next-line react/no-array-index-key
             key={index}
-            className={index <= (hover || ratings) ? `${styles.on}` : `${styles.off}`}
             onClick={() => setRatings(index)}
             onMouseEnter={() => setHover(index)}
             onMouseLeave={() => setHover(ratings)}
           >
-            <span className='star'>{StarClear}</span>
+            <span className='star'>
+              <img src={index <= (hover || ratings) ? StarActiveIcon : StarIcon} alt='star' />
+            </span>
           </button>
         );
       })}

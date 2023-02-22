@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
+import classNames from 'classnames';
 
-import { CatIcon } from '../../assets/icons';
+import CatIcon from '../../assets/images/icons/cat-icon.svg';
 import { IBookPreview } from '../../interfases';
 import { BASE_URL } from '../../not-env';
 import { viewerSelector } from '../../redux/selectors';
@@ -41,7 +42,11 @@ export const BookPage = ({ book, currentCategory }: IBookPageProps) => {
       aria-hidden='true'
     >
       <div className={styles.imgWrapper}>
-        {book.image?.url ? <img src={`${BASE_URL}${book.image.url}`} alt='' /> : CatIcon}
+        <img
+          className={classNames({ [styles.iconBookCover]: !book.image?.url })}
+          src={book.image?.url ? `${BASE_URL}${book.image.url}` : CatIcon}
+          alt=''
+        />
       </div>
 
       <div className={styles.infoWrapper}>

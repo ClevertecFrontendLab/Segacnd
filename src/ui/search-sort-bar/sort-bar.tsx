@@ -1,6 +1,5 @@
-import classNames from 'classnames';
-
-import { ASCIcon, SortIcon } from '../../assets/icons';
+import SortAscIcon from '../../assets/images/icons/icon-sort-ascending.svg';
+import SortDescIcon from '../../assets/images/icons/icon-sort-descending.svg';
 import { viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -21,7 +20,7 @@ export const SortBar = () => {
 
   return (
     <button data-test-id='sort-rating-button' type='button' className={styles.root} onClick={sortButtonHandle}>
-      {sortType === 'ASC' ? ASCIcon : SortIcon}
+      <img src={sortType === 'ASC' ? SortAscIcon : SortDescIcon} alt='sort icon' />
       <span className={styles.sortInput}>По рейтингу</span>
     </button>
   );

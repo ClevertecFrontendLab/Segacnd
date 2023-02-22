@@ -1,7 +1,8 @@
 import { useCallback, useRef, useState } from 'react';
 
-import { CloseIcon, OpenIcon, SearchCloseIcon } from '../../assets/icons';
-import { useDebounce } from '../../hooks/use-debounce-hook';
+import CloseActiveIcon from '../../assets/images/icons/close-action-active-icon.svg';
+import SearchActiveIcon from '../../assets/images/icons/search-action-active-icon.svg';
+import SearchIcon from '../../assets/images/icons/search-action-icon.svg';
 import { searchInputActions } from '../../redux/slices/search-input-slice';
 import { useAppDispatch } from '../../redux/store';
 
@@ -21,17 +22,15 @@ export const SearchBar = () => {
     [dispatch]
   );
 
-  const debouncedChangeHandler = useDebounce({ cb: changeHandler, ms: 10 });
-
-  function openMenuIcon() {
+  const openMenuIcon = () => {
     setInFocus(true);
     setOpen((prev) => !prev);
-  }
+  };
 
-  function inputToggle() {
+  const inputToggle = () => {
     setOpen(false);
     setInFocus(false);
-  }
+  };
 
   return (
     <div className={styles.root}>
@@ -41,14 +40,16 @@ export const SearchBar = () => {
         className={`${styles.inputToggler} `}
         onClick={openMenuIcon}
       >
-        {OpenIcon}{' '}
+        <img src={SearchIcon} alt='search icon' />
       </button>
       <div
         className={
           isOpen ? `${styles.searchInputWrapper} ${styles.open}` : `${styles.searchInputWrapper} ${styles.close}`
         }
       >
-        <div className={`${styles.iconWrapper} ${styles.left}`}>{inFocus ? SearchCloseIcon : OpenIcon}</div>
+        <div className={`${styles.iconWrapper} ${styles.left}`}>
+          <img src={inFocus ? SearchActiveIcon : SearchIcon} alt='search icon' />
+        </div>
 
         <input
           data-test-id='input-search'
@@ -56,17 +57,18 @@ export const SearchBar = () => {
           className={styles.searchInput}
           type='text'
           onFocus={() => setInFocus(true)}
-          onChange={debouncedChangeHandler}
+          onBlur={() => setInFocus(false)}
+          onChange={changeHandler}
           placeholder='Поиск книги или автора…'
         />
-        {inFocus ? (
+        {inFocus || isOpen ? (
           <div
             data-test-id='button-search-close'
             onClick={inputToggle}
             aria-hidden='true'
             className={`${styles.iconWrapper} ${styles.right}`}
           >
-            {CloseIcon}
+            <img src={CloseActiveIcon} alt='close search bar' />
           </div>
         ) : (
           ''
