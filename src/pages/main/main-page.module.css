@@ -137,7 +137,19 @@
   align-items: center;
   gap: 21.5px;
 }
-
+.nothingFind{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 55vh;
+  color: #A7A7A7;
+ text-align: center;
+ line-height: 28px;
+}
+.nothingFindBr{
+  display: none;
+}
 @media screen and (max-width: 1400px) {
   .cardGridtWrapper {
     column-gap: 6px;
@@ -175,7 +187,11 @@
   .cardGridtWrapper {
     grid-template-columns: 45% 45%;
   }
+  .nothingFindBr{
+    display: block;
+  }
 }
+
 
 @media screen and (max-width: 500px) {
   .cardGridtWrapper {

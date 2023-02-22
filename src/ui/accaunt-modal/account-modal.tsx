@@ -10,7 +10,7 @@ export const AccountModal = () => {
   const { accountModal } = useAppSelector(viewerSelector);
 
   return (
-    <div className={classNames(styles.closet, { [styles.accountModal]: accountModal })}>
+    <div className={accountModal ?  styles.showModal : styles.hidden}>
       <Link to='/'>Профиль</Link>
       <button type='button'>Выход</button>
     </div>

@@ -11,6 +11,7 @@ import { ScrollToTop } from '../scroll-to-top';
 
 import styles from './layout.module.css';
 
+
 export const Layout = () => {
   const location = useLocation();
   const dispatch = useAppDispatch();

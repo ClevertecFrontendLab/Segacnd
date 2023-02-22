@@ -1,33 +1,34 @@
-import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { CatIcon } from '../../assets/icons';
-import { Raiting } from '../../components/raiting/raiting-component';
 import { IBookPreview } from '../../interfases';
 import { BASE_URL } from '../../not-env';
-import { categoriesSelector, viewerSelector } from '../../redux/selectors';
+import { viewerSelector } from '../../redux/selectors';
+import { useAppSelector } from '../../redux/store';
 import { OrderButton } from '../../ui/order-button/order-button';
+import { Raiting } from '../../ui/raiting/raiting-component';
+
+import { Higlight } from './highlight';
 
 import styles from './book-page.module.css';
 
 interface IBookPageProps {
   book: IBookPreview;
+  currentCategory: string | undefined;
 }
 
-export const BookPage = ({ book }: IBookPageProps) => {
+export const BookPage = ({ book, currentCategory }: IBookPageProps) => {
   const navigate = useNavigate();
-  const { viewType } = useSelector(viewerSelector);
-  const { categories } = useSelector(categoriesSelector);
+  const { viewType } = useAppSelector(viewerSelector);
 
-  const selectedCategoryName = categories.find((el) => book.categories.includes(el.name));
   const bookedToDate = book?.booking?.dateOrder.slice(5, 10).replace('-', '.') || 0;
 
   const goToSinglePage = (id: number) => {
-    if (!selectedCategoryName) {
+    if (!currentCategory) {
       return;
     }
 
-    navigate(`/books/${selectedCategoryName.path}/${id}`);
+    navigate(`/books/${currentCategory}/${id}`);
   };
 
   return (
@@ -45,7 +46,9 @@ export const BookPage = ({ book }: IBookPageProps) => {
 
       <div className={styles.infoWrapper}>
         <div className={`${styles.title}`}>
-          <span>{book.title}</span>
+          <p>
+            <Higlight text={book.title} />
+          </p>
         </div>
 
         <div className={styles.author}>

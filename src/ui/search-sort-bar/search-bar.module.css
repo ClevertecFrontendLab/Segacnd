@@ -19,14 +19,15 @@
   border: none;
   box-shadow: var(--default-boxshadow);
   border-radius: 30px;
+  caret-color: rgb(248, 54, 0);
+
 }
-.searchInput:focus {
-  color: var(--active-clr);
-}
+
 .left {
   left: 15px;
 }
 .right {
+  display: none;
   right: 15px;
 }
 
@@ -72,9 +73,19 @@
   .left {
     display: none;
   }
+  .right {
+    display: block;
+  }
   .close {
     display: none;
   }
+  .searchInput {
+    width: 388px;
+    height: 42px;
+    padding: 7px 16px;
+  }
+}
+@media screen and (max-width: 480px) {
   .searchInput {
     width: 288px;
     height: 32px;

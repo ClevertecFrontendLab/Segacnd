@@ -2,10 +2,10 @@ import { useEffect, useMemo } from 'react';
 import { useParams } from 'react-router-dom';
 
 import { ColumnIcon, GridIcon } from '../../assets/icons';
+import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { categoriesSelector, getAllBookSelector, SearchInputSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getAllBookActions } from '../../redux/slices/get-all-books-slice';
-import { getCategoriesActions } from '../../redux/slices/get-categories-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { SearchComponent } from '../../ui/search-sort-bar/search-component';
 import { BookPage } from '../book';
@@ -13,7 +13,7 @@ import { BookPage } from '../book';
 import styles from './main-page.module.css';
 
 export const MainPage = () => {
-  const { viewType } = useAppSelector(viewerSelector);
+  const { viewType, sortType } = useAppSelector(viewerSelector);
   const { categories } = useAppSelector(categoriesSelector);
   const { books, status } = useAppSelector(getAllBookSelector);
   const { query } = useAppSelector(SearchInputSelector);
@@ -22,22 +22,22 @@ export const MainPage = () => {
 
   const selectedCategoryName = categories.find((el) => el.path === category);
 
-  useEffect(() => {
-    let ignore = false;
+ // Use this effect for develop to avoid problem with double call in strict mode 
+  useEffectOnce(() => {
+    dispatch(getAllBookActions.startFetchingAllBooks());
+  });
 
-    function startFetching() {
-      if (!ignore) {
-        dispatch(getCategoriesActions.startFetchingCategories());
-        dispatch(getAllBookActions.startFetchingAllBooks());
-      }
-    }
+  // Use this effect for prod
+  // useEffect(() => {
+  //   let ignore = false
 
-    startFetching();
+  //   if(!ignore) {
 
-    return () => {
-      ignore = true;
-    };
-  }, [dispatch]);
+  //     dispatch(getAllBookActions.startFetchingAllBooks());
+  //   }
+
+  //   return () => {ignore = true}
+  // }, [dispatch]);
 
   useEffect(() => {
     if (status === 'success') {
@@ -47,22 +47,17 @@ export const MainPage = () => {
     }
   }, [dispatch, status]);
 
-  const filteredBooks = useMemo(
-    () =>
+  const filteredBooks = useMemo(() => {
+    const filter =
       category === 'all' || !selectedCategoryName
         ? books
-        : books.filter((el) => el.categories.includes(selectedCategoryName.name)),
-    // Добавить сортировку
-    [category, books, selectedCategoryName]
-  );
+        : books.filter((el) => el.categories.includes(selectedCategoryName.name));
+    const sort = filter.filter((el) => el.title.toLowerCase().includes(query.toLowerCase()));
 
-  
-
-  let filteredList = filteredBooks;
-
-  if (query !== '') {
-    filteredList = filteredBooks.filter((el) => el.title.toLowerCase().includes(query.toLowerCase())) || <h1>По запросу ничего не найдено.</h1>;
-  }
+    return sort
+      .slice()
+      .sort((a, b) => (sortType === 'ASC' ? (a.rating || 0) - (b.rating || 0) : (b.rating || 0) - (a.rating || 0)));
+  }, [category, books, selectedCategoryName, query, sortType]);
 
   return (
     <section className={styles.mainPage}>
@@ -91,12 +86,22 @@ export const MainPage = () => {
         </div>
       )}
 
-      <div className={viewType === 'grid' ? `${styles.cardGridtWrapper}` : `${styles.cardFlexWrapper} `}>
-        {filteredList && filteredList.length ? (
-          filteredList.map((el) => <BookPage key={el.id} book={el} />)
+      {!filteredBooks.length &&
+        status !== 'loading' &&
+        (query === '' ? (
+          <h1 data-test-id='empty-category' className={styles.nothingFind}>
+            В этой категории книг ещё нет
+          </h1>
         ) : (
-          <h1>В этой категори книг еще нет.</h1>
-        )}
+          <h1 data-test-id='search-result-not-found' className={styles.nothingFind}>
+            По запросу ничего не найдено
+          </h1>
+        ))}
+      {/* <br className={styles.nothingFindBr} /> */}
+      <div className={viewType === 'grid' ? `${styles.cardGridtWrapper}` : `${styles.cardFlexWrapper} `}>
+        {filteredBooks.map((el) => (
+          <BookPage key={el.id} currentCategory={category} book={el} />
+        ))}
       </div>
     </section>
   );

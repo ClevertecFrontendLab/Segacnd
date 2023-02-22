@@ -16,6 +16,7 @@ export const GetAllBookSlice = createSlice({
       const st = state;
 
       st.status = 'loading';
+      st.books = [];
     },
     getAllBooks: (state, action: PayloadAction<{ books: IBookPreview[] }>) => {
       const st = state;

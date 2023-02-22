@@ -20,7 +20,7 @@ export const SortBar = () => {
   };
 
   return (
-    <button type='button' className={styles.root} onClick={sortButtonHandle}>
+    <button data-test-id='sort-rating-button' type='button' className={styles.root} onClick={sortButtonHandle}>
       {sortType === 'ASC' ? ASCIcon : SortIcon}
       <span className={styles.sortInput}>По рейтингу</span>
     </button>

@@ -4,6 +4,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import { ListArrowIcon } from '../../assets/icons';
+import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { categoriesSelector, getAllBookSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getCategoriesActions } from '../../redux/slices/get-categories-slice';
@@ -27,9 +28,19 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
 
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getCategoriesActions.startFetchingCategories());
-  }, [dispatch]);
+   // Use this effect for develop to avoid problem with double call in strict mode 
+  useEffectOnce(() => {
+    if (!categories.length) {
+      dispatch(getCategoriesActions.startFetchingCategories());
+    }
+  });
+
+   // Use this effect for prod
+  // useEffect(() => {
+  //   if (!categories.length) {
+  //     dispatch(getCategoriesActions.startFetchingCategories());
+  //   }
+  // }, [dispatch, categories]);
 
   useEffect(() => {
     if (menuRef.current) {
@@ -82,15 +93,21 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
             </div>
             <ul className={menuState ? `${styles.openUl} ` : ` ${styles.closeUl}`}>
               <li data-test-id={testIds[1]}>
-                <NavLink  to='/books/all'>Все книги</NavLink>
+                <NavLink to='/books/all'>Все книги</NavLink>
               </li>
               {categories &&
                 categories.map((el) => (
-                  <li key={el.id}>
-                    <NavLink to={`/books/${el.path}`}>
-                      {el.name} <span className={styles.bookQuantity}>{booksCounter(el.name)}</span>
-                    </NavLink>
-                  </li>
+                  <div className={styles.itemWrapper} key={el.id}>
+                    <li data-test-id={`${isBurgerMenu ? 'burger' : 'navigation'}-${el.path}`} >
+                      <NavLink to={`/books/${el.path}`}>{el.name}</NavLink>
+                    </li>
+                    <span
+                      data-test-id={`${isBurgerMenu ? 'burger' : 'navigation'}-book-count-for-${el.path}`}
+                      className={styles.bookQuantity}
+                    >
+                      {booksCounter(el.name)}
+                    </span>
+                  </div>
                 ))}
             </ul>
           </div>

@@ -1,15 +1,17 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
 import { ListArrowIcon } from '../../assets/icons';
 import { BookImageSlider } from '../../components/book-image-slider';
-import { Raiting } from '../../components/raiting/raiting-component';
-import { Review } from '../../components/review/review';
+import { useEffectOnce } from '../../hooks/use-effect-once-hook';
+import { ICategories } from '../../interfases';
 import { categoriesSelector, oneBookSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getSingleBookActions } from '../../redux/slices/get-single-book';
 import { OrderButton } from '../../ui/order-button/order-button';
+import { Raiting } from '../../ui/raiting/raiting-component';
+import { Review } from '../../ui/review/review';
 
 import styles from './single-page.module.css';
 
@@ -19,25 +21,41 @@ export const SinglePage = () => {
   const { book } = useSelector(oneBookSelector);
   const { categories } = useSelector(categoriesSelector);
   const dispatch = useDispatch();
-  const selectedCategoryName = categories.find((el) => el.path === category);
 
+  const selectedCategoryName = (): ICategories | undefined => {
+    if (category && category === 'all') {
+      return { id: 0, path: 'all', name: 'Все книги' };
+    }
+
+    return categories.find((el) => el.path === category);
+  };
+
+  
   function changecommentsState() {
     dispatch(viewTypeActions.commentToggle(!commentsState));
   }
-
-  useEffect(() => {
+ // Use this effect for develop to avoid problem with double call in strict mode 
+  useEffectOnce(() => {
     if (bookId) {
       dispatch(getSingleBookActions.startFetchingOneBook(+bookId));
     }
-  }, [bookId, dispatch]);
+  });
+ // Use this effect for prod
+  // useEffect(() => {
+  //   if (bookId) {
+  //     dispatch(getSingleBookActions.startFetchingOneBook(+bookId));
+  //   }
+  // }, [bookId, dispatch]);
 
   const bookedToDate = book?.booking?.dateOrder.slice(5, 10).replace('-', '.') || 0;
 
   return (
     <div>
       <div className={styles.crumb}>
-        <Link to={`/books/${selectedCategoryName?.path}`}> {selectedCategoryName?.name} </Link> <b>/</b>{' '}
-        {book?.title || ''}
+        <Link data-test-id='breadcrumbs-link' to={`/books/${selectedCategoryName()?.path}`}>
+          {selectedCategoryName()?.name}
+        </Link>
+        <b>/</b> <span data-test-id='book-name'>{book?.title || ''}</span>
       </div>
 
       {book && (
@@ -51,7 +69,9 @@ export const SinglePage = () => {
               <BookImageSlider images={book.images} />
             </div>
 
-            <h3 className={styles.title}>{book.title}</h3>
+            <h3 data-test-id='book-title' className={styles.title}>
+              {book.title}
+            </h3>
             <h5 className={`${styles.author} ${styles.bookAuthor}`}>
               {book.authors}, {book.issueYear}
             </h5>
