@@ -75,7 +75,7 @@ export const MainPage = () => {
       )}
 
       {!filteredBooks.length &&
-        status !== 'loading' &&
+        status !== ('loading' || 'error') &&
         (query === '' ? (
           <h3 data-test-id='empty-category' className={styles.nothingFind}>
             В этой категории книг ещё нет
