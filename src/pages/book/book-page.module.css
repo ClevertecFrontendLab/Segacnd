@@ -81,7 +81,7 @@
   border-radius: 10px;
   border: 1px solid var(--grey-text-clr);
   width: 100%;
-  maX-width: 174px;
+  max-width: 174px;
   min-height: 242px;
   background: #f9f9fa;
   overflow: hidden;

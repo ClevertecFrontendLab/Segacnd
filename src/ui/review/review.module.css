@@ -4,36 +4,34 @@
   gap: 16px;
   flex-wrap: wrap;
 }
-.userInfoWrapper{
+.userInfoWrapper {
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
 }
-.imgWrapper{
+.imgWrapper {
   width: 32px;
   height: 32px;
   border-radius: 50%;
   overflow: hidden;
-  
 }
-.imgWrapper img{
+.imgWrapper img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-
 }
-.userName{
+.userName {
   text-transform: capitalize;
 }
-.root p{
+.root p {
   width: fit-content;
 }
 .title {
   display: flex;
   gap: 24px;
 }
-@media screen and (max-width: 320px){
-  .userInfoWrapper{
+@media screen and (max-width: 320px) {
+  .userInfoWrapper {
     display: flex;
     flex-wrap: wrap;
     gap: 3px;

@@ -1,5 +1,4 @@
 import React, { useEffect, useRef } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
@@ -8,7 +7,7 @@ import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { categoriesSelector, getAllBookSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getCategoriesActions } from '../../redux/slices/get-categories-slice';
-import { useAppSelector } from '../../redux/store';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { routeNames } from '../../routing/routs';
 
 import styles from './menu.module.css';
@@ -19,23 +18,22 @@ interface IMenuComponentProps {
 }
 
 export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentProps) => {
-  const { books } = useSelector(getAllBookSelector);
-  const { menuState, burgerState } = useSelector(viewerSelector);
+  const { books, status } = useAppSelector(getAllBookSelector);
+  const { menuState, burgerState } = useAppSelector(viewerSelector);
   const { categories } = useAppSelector(categoriesSelector);
-  const { status } = useAppSelector(getAllBookSelector);
   const menuRef = useRef<HTMLElement>(null);
   const location = useLocation();
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
-   // Use this effect for develop to avoid problem with double call in strict mode 
+  // Use this effect for develop to avoid problem with double call in strict mode
   useEffectOnce(() => {
     if (!categories.length) {
       dispatch(getCategoriesActions.startFetchingCategories());
     }
   });
 
-   // Use this effect for prod
+  // Use this effect for prod
   // useEffect(() => {
   //   if (!categories.length) {
   //     dispatch(getCategoriesActions.startFetchingCategories());
@@ -98,7 +96,7 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
               {categories &&
                 categories.map((el) => (
                   <div className={styles.itemWrapper} key={el.id}>
-                    <li data-test-id={`${isBurgerMenu ? 'burger' : 'navigation'}-${el.path}`} >
+                    <li data-test-id={`${isBurgerMenu ? 'burger' : 'navigation'}-${el.path}`}>
                       <NavLink to={`/books/${el.path}`}>{el.name}</NavLink>
                     </li>
                     <span

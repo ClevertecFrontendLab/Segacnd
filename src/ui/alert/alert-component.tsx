@@ -10,12 +10,15 @@ import styles from './alert-component.module.css';
 export const AlertComponent = () => {
   const { isShow, text, alertStatus } = useAppSelector(AlertSelector);
   const dispatch = useAppDispatch();
-  
 
   return (
     <div
       data-test-id='error'
-      className={classNames(styles.alertWrapper, {[styles.errorWrapper] : alertStatus === 'error',[styles.succesWrapper] : alertStatus === 'successful',[styles.alertHidden] : !isShow})}
+      className={classNames(styles.alertWrapper, {
+        [styles.errorWrapper]: alertStatus === 'error',
+        [styles.succesWrapper]: alertStatus === 'successful',
+        [styles.alertHidden]: !isShow,
+      })}
     >
       <div className={styles.alertIcon}>{alertStatus === 'error' ? ErrorIcon : SuccessIcon}</div>
       <p className={styles.alertTitle}> {text}</p>

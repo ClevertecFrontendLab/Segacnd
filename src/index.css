@@ -135,7 +135,7 @@ select {
     clip-path: inset(0% 0% 0% 0% round 10px);
   }
 }
-mark{
+mark {
   color: rgba(255, 82, 83, 1);
   background-color: transparent;
 }

@@ -21,7 +21,7 @@ export const SearchBar = () => {
     [dispatch]
   );
 
-  const debouncedChangeHandler = useDebounce({cb: changeHandler, ms: 10});
+  const debouncedChangeHandler = useDebounce({ cb: changeHandler, ms: 10 });
 
   function openMenuIcon() {
     setInFocus(true);
@@ -29,11 +29,6 @@ export const SearchBar = () => {
   }
 
   function inputToggle() {
-    // if (inputRef.current) {
-    //   inputRef.current.value = '';
-    //   dispatch(searchInputActions.inputValueCHanger({ query: ''}));
-    // }
-
     setOpen(false);
     setInFocus(false);
   }

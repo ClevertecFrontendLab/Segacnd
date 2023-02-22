@@ -35,7 +35,7 @@ body:has(.root.menuOpen) {
   display: block;
   animation: showList 0.3s linear;
 }
-.itemWrapper{
+.itemWrapper {
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -98,8 +98,6 @@ ul li a {
 .root ul a:hover {
   color: #ff5253;
 }
-
-
 
 @keyframes rotate {
   from {

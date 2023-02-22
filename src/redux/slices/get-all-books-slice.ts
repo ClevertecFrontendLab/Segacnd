@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {  IBookPreview, IGetAllBooks } from '../../interfases';
+import { IBookPreview, IGetAllBooks } from '../../interfases';
 
 const initialState: IGetAllBooks = {
   books: [],

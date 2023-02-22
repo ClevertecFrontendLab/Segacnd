@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import {  ISearchInput } from '../../interfases';
+import { ISearchInput } from '../../interfases';
 
 const initialState: ISearchInput = {
   query: '',
@@ -15,7 +15,6 @@ export const SearchInputSlice = createSlice({
 
       st.query = action.payload.query;
     },
-   
   },
 });
 

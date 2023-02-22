@@ -14,15 +14,15 @@ export const useEffectOnce = (effect: () => void) => {
 
   useEffect(() => {
     if (!effectCalled.current) {
-      destroyFn.current = effectFn.current()
-      effectCalled.current = true
+      destroyFn.current = effectFn.current();
+      effectCalled.current = true;
     }
 
-    refresh(1)
+    refresh(1);
 
     return () => {
-      if (!rendered.current) return
-      if (destroyFn.current) destroyFn.current()
-    }
-  }, [])
+      if (!rendered.current) return;
+      if (destroyFn.current) destroyFn.current();
+    };
+  }, []);
 };

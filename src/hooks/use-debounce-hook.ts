@@ -11,7 +11,11 @@ interface IDebounceHook {
 export const useDebounce = ({ cb, ms }: IDebounceHook) => {
   const latestCb = useLatest(cb);
 
-  return useMemo(() => debounce((...args) => {
-    latestCb.current(...args)
-  }, ms), [latestCb, ms]);
+  return useMemo(
+    () =>
+      debounce((...args) => {
+        latestCb.current(...args);
+      }, ms),
+    [latestCb, ms]
+  );
 };

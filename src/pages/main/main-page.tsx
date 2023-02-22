@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom';
 
 import { ColumnIcon, GridIcon } from '../../assets/icons';
 import { useEffectOnce } from '../../hooks/use-effect-once-hook';
-import { categoriesSelector, getAllBookSelector, SearchInputSelector, viewerSelector } from '../../redux/selectors';
+import { categoriesSelector, getAllBookSelector, searchInputSelector, viewerSelector } from '../../redux/selectors';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getAllBookActions } from '../../redux/slices/get-all-books-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -16,13 +16,13 @@ export const MainPage = () => {
   const { viewType, sortType } = useAppSelector(viewerSelector);
   const { categories } = useAppSelector(categoriesSelector);
   const { books, status } = useAppSelector(getAllBookSelector);
-  const { query } = useAppSelector(SearchInputSelector);
+  const { query } = useAppSelector(searchInputSelector);
   const dispatch = useAppDispatch();
   const { category } = useParams();
 
   const selectedCategoryName = categories.find((el) => el.path === category);
 
- // Use this effect for develop to avoid problem with double call in strict mode 
+  // Use this effect for develop to avoid problem with double call in strict mode
   useEffectOnce(() => {
     dispatch(getAllBookActions.startFetchingAllBooks());
   });
@@ -97,7 +97,6 @@ export const MainPage = () => {
             По запросу ничего не найдено
           </h1>
         ))}
-      {/* <br className={styles.nothingFindBr} /> */}
       <div className={viewType === 'grid' ? `${styles.cardGridtWrapper}` : `${styles.cardFlexWrapper} `}>
         {filteredBooks.map((el) => (
           <BookPage key={el.id} currentCategory={category} book={el} />

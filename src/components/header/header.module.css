@@ -46,8 +46,8 @@
   justify-content: flex-end;
   gap: 16px;
 
-background-color: transparent;
-border: none;  
+  background-color: transparent;
+  border: none;
 }
 .greeting {
   font-weight: var(--fw-medium);

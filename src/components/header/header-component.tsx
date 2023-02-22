@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 
 import { BurgerMenuIcon, BurgerMenuIconClose } from '../../assets/icons';
@@ -13,8 +13,7 @@ import { MenuComponent } from '../menu';
 import styles from './header.module.css';
 
 export const HeaderComponent = () => {
-  const { burgerState } = useSelector(viewerSelector);
-  const { accountModal } = useAppSelector(viewerSelector);
+  const { burgerState, accountModal } = useAppSelector(viewerSelector);
   const dispatch = useDispatch();
 
   function openMenu() {

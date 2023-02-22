@@ -1,14 +1,14 @@
-.loaderWrapper{
-    position: absolute;
-    inset: 0;
-    background: rgba(54, 54, 54, 0.3);
-    backdrop-filter: blur(10px);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 4;
-    overflow: hidden;
+.loaderWrapper {
+  position: absolute;
+  inset: 0;
+  background: rgba(54, 54, 54, 0.3);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 4;
+  overflow: hidden;
 }
-.hideLoader{
-    display: none;
+.hideLoader {
+  display: none;
 }
