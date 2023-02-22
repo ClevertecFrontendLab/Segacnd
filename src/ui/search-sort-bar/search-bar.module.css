@@ -19,7 +19,7 @@
   border: none;
   box-shadow: var(--default-boxshadow);
   border-radius: 30px;
-  caret-color: rgb(248, 54, 0);
+  caret-color: rgba(248, 54, 0, 1);
 }
 
 .left {
