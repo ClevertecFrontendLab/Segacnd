@@ -1,3 +1,5 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import classNames from 'classnames';
 
 import CloseIcon from '../../assets/images/icons/close-action-icon.svg';
@@ -10,8 +12,13 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import styles from './alert-component.module.css';
 
 export const AlertComponent = () => {
+  const location = useLocation();
   const { isShow, text, alertStatus } = useAppSelector(AlertSelector);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(alertActions.closeAlert());
+  }, [dispatch, location.pathname]);
 
   return (
     <div
