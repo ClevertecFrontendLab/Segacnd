@@ -5,6 +5,7 @@
   margin-inline: auto;
   align-items: center;
   grid-template-columns: 1fr 2fr 1fr;
+  position: relative;
 }
 .burgerButton {
   display: none;
@@ -44,6 +45,9 @@
   align-items: center;
   justify-content: flex-end;
   gap: 16px;
+
+  background-color: transparent;
+  border: none;
 }
 .greeting {
   font-weight: var(--fw-medium);

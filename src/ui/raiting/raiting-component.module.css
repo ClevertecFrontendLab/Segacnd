@@ -1,0 +1,10 @@
+.root {
+  display: flex;
+  gap: 6px;
+}
+.root button {
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+}

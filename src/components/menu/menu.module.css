@@ -35,6 +35,12 @@ body:has(.root.menuOpen) {
   display: block;
   animation: showList 0.3s linear;
 }
+.itemWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+}
 
 @keyframes showList {
   from {
@@ -53,9 +59,10 @@ body:has(.root.menuOpen) {
 
 ul li {
   margin-block: 16px;
+  max-width: 170px;
 }
 
-.activePath svg {
+.activePath img {
   color: var(--active-clr);
 }
 
@@ -78,12 +85,12 @@ ul li a {
   color: var(--dark-clr);
 }
 
-.open svg {
+.open img {
   transform: rotate(180deg);
   animation: rotateTwo 0.2s linear;
 }
 
-.close svg {
+.close img {
   transform: rotate(0deg);
   animation: rotate 0.2s linear;
 }
