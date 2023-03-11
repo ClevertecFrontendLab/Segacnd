@@ -1,3 +1,5 @@
+export  type  TStatus = 'init' | 'loading' | 'error' | 'success';
+
 export interface IImage {
   url: string;
 }
@@ -77,15 +79,15 @@ export interface IAlertSlice {
 
 export interface IGetAllBooks {
   books: IBookPreview[] | [];
-  status: 'init' | 'loading' | 'error' | 'success';
+  status: TStatus;
 }
 export interface IGetCategories {
   categories: ICategories[] | [];
-  status: 'init' | 'loading' | 'error' | 'success';
+  status: TStatus;
 }
 export interface IGetOneBook {
   book: IBook | null;
-  status: 'init' | 'loading' | 'error' | 'success';
+  status: TStatus;
 }
 
 export interface IButtonProps {
@@ -97,4 +99,80 @@ export interface IButtonProps {
 
 export interface ISearchInput {
   query: string;
+}
+
+
+export interface User {
+  id: number;
+  username: string;
+  email: string;
+  provider: string;
+  confirmed: boolean;
+  blocked: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+export interface DataAuth {
+  jwt: string;
+  user: User;
+}
+export interface IUserAuth {
+  identifier: string;
+  password: string;
+}
+
+export interface AuthError{
+  status: number;
+  name: string;
+  message: string;
+  details: any;
+}
+
+export interface IAuthState {
+  user: User | null;
+  error: AuthError | null;
+  status: TStatus;
+  authDetails: IUserAuth | null;
+}
+export interface IRegistrationState {
+
+  error: AuthError | null;
+  status: TStatus;
+}
+
+
+export interface IAuthResponse {
+  user: User;
+  jwt: string;
+}
+
+export interface IAuthErrorResponse {
+  error: AuthError;
+}
+export interface IRegistrationData {
+  email: string;
+  username: string;
+  password: string;
+  firstName: string;
+  lastName: string;
+  phone: string;
+}
+
+export interface IForgotPasswordState{
+  ok: boolean;
+  status: TStatus;
+}
+
+export interface IResetPasswordRequest {
+  password: string;
+  passwordConfirmation: string;
+  code: string;
+}
+
+
+export interface ResetPassword {
+  status: TStatus;
 }

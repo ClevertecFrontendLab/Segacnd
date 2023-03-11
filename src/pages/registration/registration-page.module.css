@@ -1,0 +1,38 @@
+.root{
+    display: flex;
+    flex-direction: column;
+
+    gap: 16px;
+}
+
+.root button{
+    margin-top: 16px;
+}
+
+.root a {
+    margin-left: 12px;
+}
+/* .root input {
+    width: 100%;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 18px;
+    letter-spacing: 0.1px;
+    color: #363636;
+    background: #f9f9fa;
+    border: none;
+    padding: 26px 12px 12px 12px;
+    outline: none;
+    width: 410px;
+   
+  } */
+  .redirectLink {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 18px;
+  
+    letter-spacing: 0.2px;
+    text-transform: uppercase;
+  
+    color: #363636;
+  }

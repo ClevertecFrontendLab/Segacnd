@@ -40,6 +40,7 @@ export const MainPage = () => {
       category === 'all' || !selectedCategoryName
         ? books
         : books.filter((el) => el.categories.includes(selectedCategoryName.name));
+
     const sort = filter.filter((el) => el.title.toLowerCase().includes(query.toLowerCase()));
 
     return sort
@@ -47,30 +48,37 @@ export const MainPage = () => {
       .sort((a, b) => (sortType === 'ASC' ? (a.rating || 0) - (b.rating || 0) : (b.rating || 0) - (a.rating || 0)));
   }, [category, books, selectedCategoryName, query, sortType]);
 
+  const viewTypeButtons = useMemo(
+    () => (
+      <div className={styles.itemsView}>
+        <div
+          data-test-id='button-menu-view-window'
+          className={viewType === 'grid' ? styles.activeWrapper : styles.svgWrapper}
+          onClick={() => dispatch(viewTypeActions.viewChanger({ viewType: 'grid' }))}
+          aria-hidden='true'
+        >
+          <img src={GridIcon} alt='grid icon' />
+        </div>
+        <div
+          className={viewType === 'grid' ? styles.svgWrapper : styles.activeWrapper}
+          onClick={() => dispatch(viewTypeActions.viewChanger({ viewType: 'column' }))}
+          aria-hidden='true'
+          data-test-id='button-menu-view-list'
+        >
+          <img src={RowIcon} alt='row icon' />
+        </div>
+      </div>
+    ),
+    [dispatch, viewType]
+  );
+
   return (
     <section className={styles.mainPage}>
       {status !== 'error' && (
         <div className={styles.searchAndSortWrapper}>
           <SearchComponent />
 
-          <div className={styles.itemsView}>
-            <div
-              data-test-id='button-menu-view-window'
-              className={viewType === 'grid' ? styles.activeWrapper : styles.svgWrapper}
-              onClick={() => dispatch(viewTypeActions.viewChanger({ viewType: 'grid' }))}
-              aria-hidden='true'
-            >
-              <img src={GridIcon} alt='grid icon' />
-            </div>
-            <div
-              className={viewType === 'grid' ? styles.svgWrapper : styles.activeWrapper}
-              onClick={() => dispatch(viewTypeActions.viewChanger({ viewType: 'column' }))}
-              aria-hidden='true'
-              data-test-id='button-menu-view-list'
-            >
-              <img src={RowIcon} alt='row icon' />
-            </div>
-          </div>
+          {viewTypeButtons}
         </div>
       )}
 

@@ -1,0 +1,31 @@
+.root{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 32px;
+  max-width: 416px;
+}
+
+.root h4 {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 30px;
+  
+  letter-spacing: 0.1px;
+    
+  color: #363636;
+}
+
+.root p {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  letter-spacing: 0.1px;
+
+  color: #363636;
+}

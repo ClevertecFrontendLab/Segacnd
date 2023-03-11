@@ -1,0 +1,30 @@
+.root{
+    width: 100vw;
+    height: 100dvh;
+    background: linear-gradient(231.58deg, #f83600 -53.35%, #f9d423 297.76%);
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 60px;
+
+}
+
+.innerContent{
+    background-color: #fff;
+    padding: 48px 56px ;
+    border-radius: 16px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.root h1 {
+    color: #fff;
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 40px;
+    letter-spacing: 0.1px;
+  }

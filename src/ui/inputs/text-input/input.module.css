@@ -1,0 +1,65 @@
+.root {
+  position: relative;
+  border-bottom: 1px solid #bfc4c9;
+  margin-bottom: 2px;
+}
+.root input {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 18px;
+  letter-spacing: 0.1px;
+  color: #363636;
+  background: #f9f9fa;
+  border: none;
+  padding: 26px 12px 12px 12px;
+  outline: none;
+  width: 410px;
+}
+
+.labe {
+  position: absolute;
+  left: 12px;
+  top: 19px;
+  transition: ease-in-out 0.3s;
+}
+.active {
+  position: absolute;
+  left: 12px;
+  top: 6px;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  transition: ease-in-out 0.3s;
+  color: #a7a7a7;
+}
+
+.showHidePass {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+}
+.errorBorder {
+  border-bottom: 1px solid #f42c4f;
+}
+
+.errorMessage {
+  color: #f42c4f;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  /* identical to box height, or 133% */
+  margin-left: 12px;
+  letter-spacing: 0.2px;
+  /* margin-bottom: 18px; */
+}
+
+.infoMessage{
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+  color: #727272;
+  width: 410px;
+  word-wrap: break-word;
+}

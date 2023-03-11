@@ -1,3 +1,5 @@
+import { memo } from 'react';
+
 import SortAscIcon from '../../assets/images/icons/icon-sort-ascending.svg';
 import SortDescIcon from '../../assets/images/icons/icon-sort-descending.svg';
 import { viewerSelector } from '../../redux/selectors';
@@ -6,7 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 
 import styles from './sort-bar.module.css';
 
-export const SortBar = () => {
+export const SortBar = memo(() => {
   const dispatch = useAppDispatch();
   const { sortType } = useAppSelector(viewerSelector);
 
@@ -24,4 +26,4 @@ export const SortBar = () => {
       <span className={styles.sortInput}>По рейтингу</span>
     </button>
   );
-};
+});

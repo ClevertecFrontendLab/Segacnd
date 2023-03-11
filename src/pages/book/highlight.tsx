@@ -5,27 +5,29 @@ import { useAppSelector } from '../../redux/store';
 
 interface IHighlight {
   text: string;
+  query: string;
 }
-export const Higlight = ({ text }: IHighlight) => {
-  const { query } = useAppSelector(searchInputSelector);
-  const regex = new RegExp(`(${query})`, 'gi');
-  const parts = text.split(regex);
-  const result =
-    query === '' ? (
-      <span>{text}</span>
-    ) : (
-      parts.map((el, i) =>
-        regex.test(el) ? (
+export const Higlight = ({ text, query }: IHighlight) => {
+  const hightLightWords = query.split(' ').map((el) => el.toLowerCase());
+
+  const result = query.replace(/\s/g, '').length ? (
+    text.split(' ').map((el, i) => {
+      if (hightLightWords.includes(el.toLowerCase())) {
+        return (
           // eslint-disable-next-line react/no-array-index-key
           <mark key={i + el} data-test-id='highlight-matches'>
-            {el}
+            {' '}
+            {el}{' '}
           </mark>
-        ) : (
-          // eslint-disable-next-line react/no-array-index-key
-          <span key={i}>{el}</span>
-        )
-      )
-    );
+        );
+      }
+
+      // eslint-disable-next-line react/no-array-index-key
+      return <span key={i}> {el} </span>;
+    })
+  ) : (
+    <span>{text}</span>
+  );
 
   return <React.Fragment> {result} </React.Fragment>;
 };
