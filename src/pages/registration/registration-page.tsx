@@ -7,6 +7,7 @@ import { RegistrationForm } from '../../components/forms/registration-form';
 import { registrationSelector } from '../../redux/selectors';
 import { registrationActions } from '../../redux/slices/registration-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { routeNames } from '../../routing/routs';
 
 import styles from './registration-page.module.css';
 
@@ -17,7 +18,7 @@ export const Registration = () => {
   const dispatch = useAppDispatch();
 
   const redirectToLogin = useCallback(() => {
-    navigate('/auth');
+    navigate(routeNames.AUTH);
     dispatch(registrationActions.resetData());
   }, [navigate, dispatch]);
 

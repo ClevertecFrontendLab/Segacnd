@@ -37,7 +37,7 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
   const endSession = () => {
     Cookies.remove('jwt');
     dispatch(authActions.logout());
-    navigate('/auth');
+    navigate(routeNames.AUTH);
   };
 
   useEffect(() => {

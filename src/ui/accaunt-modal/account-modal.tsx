@@ -5,6 +5,7 @@ import { viewerSelector } from '../../redux/selectors';
 import { authActions } from '../../redux/slices/authorization-slice';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { routeNames } from '../../routing/routs';
 
 import styles from './accaunt-modal.module.css';
 
@@ -17,7 +18,7 @@ export const AccountModal = () => {
     dispatch(viewTypeActions.accountModalToggle(!accountModal));
     Cookies.remove('jwt');
     dispatch(authActions.logout());
-    navigate('/auth');
+    navigate(routeNames.AUTH);
   };
 
   return (

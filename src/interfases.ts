@@ -1,4 +1,4 @@
-export  type  TStatus = 'init' | 'loading' | 'error' | 'success';
+export type TStatus = 'init' | 'loading' | 'error' | 'success';
 
 export interface IImage {
   url: string;
@@ -101,7 +101,6 @@ export interface ISearchInput {
   query: string;
 }
 
-
 export interface User {
   id: number;
   username: string;
@@ -124,7 +123,7 @@ export interface IUserAuth {
   password: string;
 }
 
-export interface AuthError{
+export interface AuthError {
   status: number;
   name: string;
   message: string;
@@ -144,7 +143,6 @@ export interface IRegistrationState {
   errorStatusCode?: number;
 }
 
-
 export interface IAuthResponse {
   user: User;
   jwt: string;
@@ -163,7 +161,7 @@ export interface IRegistrationData {
   phone: string;
 }
 
-export interface IForgotPasswordState{
+export interface IForgotPasswordState {
   status: TStatus;
 }
 
@@ -172,7 +170,6 @@ export interface IResetPasswordRequest {
   passwordConfirmation: string;
   code: string;
 }
-
 
 export interface ResetPassword {
   status: TStatus;

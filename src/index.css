@@ -119,7 +119,7 @@ select {
 .swiper-slide > img {
   clip-path: inset(0% 0% 0% 0% round 5px);
 }
-button:hover{
+button:hover {
   cursor: pointer;
 }
 
@@ -145,16 +145,14 @@ button:hover{
 
 .supportOrErrorText {
   margin-left: 12px;
-  /* margin-bottom: 18px; */
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
   letter-spacing: 0.2px;
   color: #a7a7a7;
 }
-.supportOrErrorTextHide{
+.supportOrErrorTextHide {
   margin-left: 12px;
-  /* margin-bottom: 18px; */
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -163,12 +161,12 @@ button:hover{
 }
 
 @media screen and (max-width: 600px) {
-  .supportOrErrorText{
+  .supportOrErrorText {
     width: 356px;
   }
 }
 @media screen and (max-width: 400px) {
-  .supportOrErrorText{
+  .supportOrErrorText {
     width: 256px;
   }
 }

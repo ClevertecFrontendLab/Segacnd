@@ -2,17 +2,16 @@
   width: 100%;
   position: relative;
 }
+
 .passWrapper,
 .loginWrapper {
   position: relative;
 }
 
-
 .uncorrectLogin input {
   border-bottom: 1px solid #f42c4f;
 }
-.jojo {
-}
+
 .errorText {
   margin-left: 12px;
   color: #f42c4f;
@@ -33,6 +32,7 @@
   line-height: 16px;
   color: #a7a7a7;
 }
+
 .supportText {
   font-weight: 500;
   font-size: 12px;
