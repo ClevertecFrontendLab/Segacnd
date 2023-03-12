@@ -23,7 +23,7 @@ export const RegistrationThirdStep = () => {
   const { data: formData } = useFormData();
   const dispatch = useAppDispatch();
 
-  const { handleSubmit, getFieldState, trigger, watch,reset, control, formState } = useForm<IFirstStep>({
+  const { handleSubmit, getFieldState, trigger, watch, reset, control, formState } = useForm<IFirstStep>({
     mode: 'all',
     resolver: yupResolver(registrationThirdStepSchema),
     criteriaMode: 'all',

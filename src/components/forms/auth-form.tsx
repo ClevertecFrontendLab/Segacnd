@@ -1,5 +1,4 @@
-import { ForwardedRef, ForwardRefExoticComponent } from 'react';
-import { Controller, FieldValues, useForm, UseFormTrigger } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -8,7 +7,7 @@ import { authActions } from '../../redux/slices/authorization-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { FormButton } from '../../ui/form-button/form-button';
 import { PasswordInput } from '../../ui/inputs/password-input/password-input';
-import { IInputProps, Input } from '../../ui/inputs/text-input/input';
+import { Input } from '../../ui/inputs/text-input/input';
 
 import { loginSchema } from './form-validation-scheme';
 
@@ -32,8 +31,6 @@ export const AuthForm = () => {
   const onSubmit = (data: LoginForm) => {
     dispatch(authActions.startFetchingAuth({ authDetails: data }));
   };
-
-  console.log('formState - ', formState)
 
   return (
     <form

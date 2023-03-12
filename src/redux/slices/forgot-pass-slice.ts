@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { IForgotPasswordState, TStatus} from '../../interfases';
+import { IForgotPasswordState, TStatus } from '../../interfases';
 
 const initialState: IForgotPasswordState = {
   status: 'init',
@@ -17,11 +17,9 @@ export const ForgotPasswordSlice = createSlice({
     },
     getForgotResponse(state, action: PayloadAction<{ status: TStatus }>) {
       const st = state;
-      
+
       st.status = action.payload.status;
     },
-
-
   },
 });
 

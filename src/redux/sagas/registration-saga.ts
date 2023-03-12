@@ -12,17 +12,12 @@ async function sendRegistrationDataAPI(data: IRegistrationData): Promise<IAuthRe
 
 export function* registrationSaga(action: PayloadAction<{ registrationDetails: IRegistrationData }>) {
   try {
-    yield call(
-      sendRegistrationDataAPI,
-      action.payload.registrationDetails
-    );
+    yield call(sendRegistrationDataAPI, action.payload.registrationDetails);
 
     yield put(registrationActions.getUserData());
   } catch (error) {
     const axiosError = error as AxiosError;
 
-    yield put(
-      registrationActions.failedFetchingRegistration({ errorStatusCode: axiosError.response?.status })
-    );
+    yield put(registrationActions.failedFetchingRegistration({ errorStatusCode: axiosError.response?.status }));
   }
 }

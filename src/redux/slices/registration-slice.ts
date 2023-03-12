@@ -1,12 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-import { AuthError, IRegistrationData, IRegistrationState } from '../../interfases';
+import {  IRegistrationData, IRegistrationState } from '../../interfases';
 
 const initialState: IRegistrationState = {
   status: 'init',
   registrationData: null,
-  errorStatusCode: undefined
-
+  errorStatusCode: undefined,
 };
 
 export const RegistrationSlice = createSlice({
@@ -19,13 +18,13 @@ export const RegistrationSlice = createSlice({
       st.registrationData = action.payload.registrationDetails;
       st.status = 'loading';
     },
-    getUserData(state, ) {
+    getUserData(state) {
       const st = state;
 
       st.registrationData = null;
       st.status = 'success';
     },
-    failedFetchingRegistration(state, action: PayloadAction<{  errorStatusCode?: number }>) {
+    failedFetchingRegistration(state, action: PayloadAction<{ errorStatusCode?: number }>) {
       const st = state;
 
       st.errorStatusCode = action.payload.errorStatusCode;
@@ -37,7 +36,7 @@ export const RegistrationSlice = createSlice({
       st.status = 'init';
       st.registrationData = null;
       st.errorStatusCode = undefined;
-    }
+    },
   },
 });
 

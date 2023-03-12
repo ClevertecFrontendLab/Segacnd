@@ -4,7 +4,6 @@ import { IBookPreview, IGetAllBooks } from '../../interfases';
 
 const initialState: IGetAllBooks = {
   books: [],
-  // status = 'init' | 'loading' | 'error' | 'success'
   status: 'init',
 };
 

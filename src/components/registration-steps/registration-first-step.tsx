@@ -1,7 +1,6 @@
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import { Higlight } from '../../pages/book/highlight';
 import { FormButton } from '../../ui/form-button/form-button';
 import { PasswordInput } from '../../ui/inputs/password-input/password-input';
 import { Input } from '../../ui/inputs/text-input/input';

@@ -132,7 +132,12 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
           <Link className={styles.profileLink} to='/'>
             Профиль
           </Link>
-          <button data-test-id={isBurgerMenu ? 'exit-button' : ''} type='button' onClick={endSession} className={styles.exitButton}>
+          <button
+            data-test-id={isBurgerMenu ? 'exit-button' : ''}
+            type='button'
+            onClick={endSession}
+            className={styles.exitButton}
+          >
             Выход
           </button>
         </div>

@@ -4,7 +4,7 @@ import { IResetPasswordRequest, ResetPassword, TStatus } from '../../interfases'
 
 const initialState: ResetPassword = {
   status: 'init',
-  resetData: null
+  resetData: null,
 };
 
 export const ResetPasswordSlice = createSlice({

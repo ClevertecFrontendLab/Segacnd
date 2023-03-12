@@ -2,10 +2,8 @@ import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { FormButton } from '../../ui/form-button/form-button';
-import { PasswordInput } from '../../ui/inputs/password-input/password-input';
 import { Input } from '../../ui/inputs/text-input/input';
 import { useFormData } from '../forms/context/registration-context';
-import { textFieldSchema } from '../forms/form-validation';
 import { registrationSecondStepSchema } from '../forms/form-validation-scheme';
 
 export interface IFirstStep {
@@ -23,7 +21,6 @@ interface IRegistrationSecondStep {
 }
 
 export const RegistrationSecondStep = ({ increaseStep }: IRegistrationSecondStep) => {
-
   const { handleSubmit, getFieldState, trigger, reset, control, formState } = useForm<IFirstStep>({
     mode: 'all',
     resolver: yupResolver(registrationSecondStepSchema),

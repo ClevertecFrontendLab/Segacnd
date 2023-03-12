@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import {  useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
@@ -74,7 +74,10 @@ export const ResetPasswordForm = ({ code }: IResetPasswordForm) => {
         )}
       />
 
-      <FormButton disabled={formState.errors.passwordConfirmation?.type === 'oneOf' && !isPasswordFocus} value='сохранить изменения' />
+      <FormButton
+        disabled={formState.errors.passwordConfirmation?.type === 'oneOf' && !isPasswordFocus}
+        value='сохранить изменения'
+      />
     </form>
   );
 };

@@ -13,7 +13,9 @@ export const FormStatusModal = ({ title, message, buttonLabel, handleButtonClick
     <p>{message}</p>
 
     {buttonLabel && handleButtonClick && (
-      <button className={styles.modalButton} type='button' onClick={handleButtonClick}>{buttonLabel}</button>
+      <button className={styles.modalButton} type='button' onClick={handleButtonClick}>
+        {buttonLabel}
+      </button>
     )}
   </div>
 );

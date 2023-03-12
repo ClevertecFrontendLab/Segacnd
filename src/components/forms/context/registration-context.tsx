@@ -4,7 +4,7 @@ export interface IRegistrationFormContext {
   data: any;
   setFormValues: (values: any) => void;
 }
-export const RegistrationFormContext = createContext<IRegistrationFormContext>({ data: {}, setFormValues: () => {}});
+export const RegistrationFormContext = createContext<IRegistrationFormContext>({ data: {}, setFormValues: () => {} });
 
 export const RegistrationFormProvider = ({ children }: any) => {
   const [data, setData] = useState({});

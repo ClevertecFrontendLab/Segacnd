@@ -1,5 +1,5 @@
-import React, { SyntheticEvent, useEffect, useState } from 'react';
-import { FieldError, FieldValues, UseFormTrigger } from 'react-hook-form';
+import React, { SyntheticEvent, useState } from 'react';
+import { FieldError } from 'react-hook-form';
 
 import { Higlight } from '../../../pages/book/highlight';
 
@@ -10,7 +10,7 @@ interface FocusEvent<T = Element> extends SyntheticEvent<T> {
   target: EventTarget & T;
 }
 export interface IInputProps {
-  fieldState: { isTouched: boolean; invalid: boolean; error?: FieldError, isDirty: boolean };
+  fieldState: { isTouched: boolean; invalid: boolean; error?: FieldError; isDirty: boolean };
   placeholder?: string;
   value?: string | number;
   inputid: string;
@@ -28,7 +28,7 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref
 
   const {
     placeholder,
-    fieldState: { invalid, error, isTouched },
+    fieldState: { invalid, error },
     errorMessage,
     infoMessage,
     triggerValidation,
@@ -39,9 +39,11 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref
     ...otherProps
   } = props;
 
-  const errorStatusTest: string[] = Object.entries(error?.types || [])
-    .filter(entry => entry[0] !== 'required').map((i) => (Array.isArray(i[1]) ? i[1] : [i[1]]))
-    .flat() || [];
+  const errorStatusTest: string[] =
+    Object.entries(error?.types || [])
+      .filter((entry) => entry[0] !== 'required')
+      .map((i) => (Array.isArray(i[1]) ? i[1] : [i[1]]))
+      .flat() || [];
 
   const fieldCheck = invalid && !isNameInputActive;
 
@@ -86,11 +88,16 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref
           onBlur={handleOnBlur}
         />
       </div>
-      <div data-test-id='hint' className={fieldCheck || requestErrorMessage ? `${styles.errorMessage} ` : ' supportOrErrorText'}>
+      <div
+        data-test-id='hint'
+        className={fieldCheck || requestErrorMessage ? `${styles.errorMessage} ` : ' supportOrErrorText'}
+      >
         {!showRequiredError && !error?.types?.notOneOf && errorMessage && errorStatusTest.length ? (
           <Higlight text={errorMessage} query={errorStatusTest} />
+        ) : isNameInputActive && !errorMessage ? (
+          ''
         ) : (
-          isNameInputActive && !errorMessage ? '' : error?.message || errorMessage || requestErrorMessage
+          error?.message || errorMessage || requestErrorMessage
         )}
       </div>
       {infoMessage && <p className={styles.infoMessage}>{infoMessage}</p>}

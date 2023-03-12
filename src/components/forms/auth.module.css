@@ -6,21 +6,12 @@
 .loginWrapper {
   position: relative;
 }
-/* .passWrapper,
-.loginWrapper input {
-  width: 100%;
-  font-weight: 400;
-  font-size: 14px;
-  line-height: 18px;
-  letter-spacing: 0.1px;
-  color: #363636;
-} */
+
 
 .uncorrectLogin input {
   border-bottom: 1px solid #f42c4f;
 }
-.jojo{
-  
+.jojo {
 }
 .errorText {
   margin-left: 12px;

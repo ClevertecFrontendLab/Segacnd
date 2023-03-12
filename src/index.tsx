@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider } from 'react-redux';
 import { HashRouter, Navigate, Route, Routes } from 'react-router-dom';
-import Cookies from 'js-cookie';
 
 import { Layout } from './components/layout';
 import { LayoutMainPage } from './components/layout-main-page';
@@ -37,7 +36,6 @@ root.render(
           >
             <Route element={<LayoutMainPage />}>
               <Route path='/' element={<Navigate to={routeNames.ROOT_PATH} />} />
-              {/* <Route path='/' element={<Navigate to={routeNames.AUTH} />} /> */}
               <Route path={routeNames.CATEGORY_BOOKS} element={<MainPage />} />
               <Route path={routeNames.TERMS} element={<Terms contentView='terms' />} />
               <Route path={routeNames.CONTRACT} element={<Terms contentView='contract' />} />

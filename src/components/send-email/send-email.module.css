@@ -61,14 +61,14 @@
 }
 
 @media screen and (max-width: 600px) {
-  .goBack{
+  .goBack {
     left: -24px;
     width: 113.2%;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .goBack{
+  .goBack {
     left: -24px;
     width: 116.5%;
   }
