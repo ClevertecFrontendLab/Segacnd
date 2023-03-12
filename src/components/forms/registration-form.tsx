@@ -29,7 +29,7 @@ export const RegistrationForm = ({ currentStep, handleStep }: IRegForm) => {
   return (
     <RegistrationFormProvider>
       <div className={styles.root}>
-        <div>{steps[currentStep]}</div>
+        <div>{steps[currentStep - 1]}</div>
       </div>
     </RegistrationFormProvider>
   );

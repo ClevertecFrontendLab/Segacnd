@@ -12,7 +12,7 @@ import { routeNames } from '../../routing/routs';
 import styles from './registration-page.module.css';
 
 export const Registration = () => {
-  const [currentStep, setCurrentStep] = useState<number>(0);
+  const [currentStep, setCurrentStep] = useState<number>(1);
   const { status, errorStatusCode, registrationData } = useAppSelector(registrationSelector);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -29,7 +29,7 @@ export const Registration = () => {
   }, [registrationData, dispatch]);
 
   const registrationAgain = useCallback(() => {
-    setCurrentStep(0);
+    setCurrentStep(1);
     dispatch(registrationActions.resetData());
   }, [dispatch]);
 
@@ -67,7 +67,7 @@ export const Registration = () => {
   }
 
   const increaseStep = () => {
-    if (currentStep < 2) {
+    if (currentStep < 3) {
       setCurrentStep((prev) => prev + 1);
     }
   };
@@ -75,7 +75,7 @@ export const Registration = () => {
   return (
     <div className={styles.root}>
       <h3>Регистрация</h3>
-      <h5>{currentStep + 1} шаг из 3</h5>
+      <h5>{currentStep} шаг из 3</h5>
       <RegistrationForm currentStep={currentStep} handleStep={increaseStep} />
 
       <div className={styles.redirectWrapper}>
