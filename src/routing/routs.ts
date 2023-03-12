@@ -5,4 +5,8 @@ export const routeNames = {
   TERMS: '/terms',
   CONTRACT: '/contract',
   SINGLE_PAGE: '/books/:category/:bookId',
+  REGISTRATION: '/registration',
+  AUTH: '/auth',
+  FORGOT_PASSWORD: '/forgot-pass',
+  RESET_PASSWORD: '/forgot-pass/:code',
 };

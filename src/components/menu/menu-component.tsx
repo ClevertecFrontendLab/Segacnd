@@ -1,10 +1,12 @@
 import React, { useEffect, useRef } from 'react';
-import { Link, NavLink, useLocation } from 'react-router-dom';
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom';
 import classNames from 'classnames';
+import Cookies from 'js-cookie';
 
 import ArrowIcon from '../../assets/images/icons/arrow-up-active-icon.svg';
 import { useEffectOnce } from '../../hooks/use-effect-once-hook';
 import { categoriesSelector, getAllBookSelector, viewerSelector } from '../../redux/selectors';
+import { authActions } from '../../redux/slices/authorization-slice';
 import { viewTypeActions } from '../../redux/slices/content-view-slice';
 import { getCategoriesActions } from '../../redux/slices/get-categories-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
@@ -23,7 +25,7 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
   const { categories } = useAppSelector(categoriesSelector);
   const menuRef = useRef<HTMLElement>(null);
   const location = useLocation();
-
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
   useEffectOnce(() => {
@@ -31,6 +33,12 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
       dispatch(getCategoriesActions.startFetchingCategories());
     }
   });
+
+  const endSession = () => {
+    Cookies.remove('jwt');
+    dispatch(authActions.logout());
+    navigate(routeNames.AUTH);
+  };
 
   useEffect(() => {
     if (menuRef.current) {
@@ -124,7 +132,12 @@ export const MenuComponent = ({ isBurgerMenu = false, testIds }: IMenuComponentP
           <Link className={styles.profileLink} to='/'>
             Профиль
           </Link>
-          <button type='button' className={styles.exitButton}>
+          <button
+            data-test-id={isBurgerMenu ? 'exit-button' : ''}
+            type='button'
+            onClick={endSession}
+            className={styles.exitButton}
+          >
             Выход
           </button>
         </div>

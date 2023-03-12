@@ -4,7 +4,7 @@ import classNames from 'classnames';
 import CatIcon from '../../assets/images/icons/cat-icon.svg';
 import { IBookPreview } from '../../interfases';
 import { BASE_URL } from '../../not-env';
-import { viewerSelector } from '../../redux/selectors';
+import { searchInputSelector, viewerSelector } from '../../redux/selectors';
 import { useAppSelector } from '../../redux/store';
 import { OrderButton } from '../../ui/order-button/order-button';
 import { Raiting } from '../../ui/raiting/raiting-component';
@@ -21,6 +21,7 @@ interface IBookPageProps {
 export const BookPage = ({ book, currentCategory }: IBookPageProps) => {
   const navigate = useNavigate();
   const { viewType } = useAppSelector(viewerSelector);
+  const { query } = useAppSelector(searchInputSelector);
 
   const bookedToDate = book?.booking?.dateOrder.slice(5, 10).replace('-', '.') || 0;
 
@@ -52,7 +53,7 @@ export const BookPage = ({ book, currentCategory }: IBookPageProps) => {
       <div className={styles.infoWrapper}>
         <div className={`${styles.title}`}>
           <p>
-            <Higlight text={book.title} />
+            <Higlight text={book.title} query={query} />
           </p>
         </div>
 

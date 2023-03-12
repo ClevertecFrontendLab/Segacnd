@@ -1,4 +1,4 @@
-import { useCallback, useRef, useState } from 'react';
+import { memo, useCallback, useRef, useState } from 'react';
 
 import CloseActiveIcon from '../../assets/images/icons/close-action-active-icon.svg';
 import SearchActiveIcon from '../../assets/images/icons/search-action-active-icon.svg';
@@ -8,7 +8,7 @@ import { useAppDispatch } from '../../redux/store';
 
 import styles from './search-bar.module.css';
 
-export const SearchBar = () => {
+export const SearchBar = memo(() => {
   const [isOpen, setOpen] = useState<boolean>(false);
   const [inFocus, setInFocus] = useState<boolean>(false);
   const inputRef = useRef<HTMLInputElement>(null);
@@ -76,4 +76,4 @@ export const SearchBar = () => {
       </div>
     </div>
   );
-};
+});
