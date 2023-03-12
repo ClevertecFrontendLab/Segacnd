@@ -1,32 +1,28 @@
 import { call, put } from 'redux-saga/effects';
 import { PayloadAction } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
 
 import { defaultRequest } from '../../axios/instances ';
-import { IAuthErrorResponse, IAuthResponse, IRegistrationData, IUserAuth } from '../../interfases';
-import { alertActions } from '../slices/alert-slice';
-import { authActions } from '../slices/authorization-slice';
+import { IAuthErrorResponse, IAuthResponse, IRegistrationData } from '../../interfases';
 import { registrationActions } from '../slices/registration-slice';
 
 async function sendRegistrationDataAPI(data: IRegistrationData): Promise<IAuthResponse | IAuthErrorResponse> {
-  return defaultRequest
-    .post('/auth/local/register', data)
-    .then((res) => res.data)
-    .catch((er) => er.response.data);
+  return defaultRequest.post('/auth/local/register', data).then((res) => res.data);
 }
 
 export function* registrationSaga(action: PayloadAction<{ registrationDetails: IRegistrationData }>) {
   try {
-    const response: IAuthResponse | IAuthErrorResponse = yield call(
+    yield call(
       sendRegistrationDataAPI,
       action.payload.registrationDetails
     );
 
-    if ('user' in response) {
-      yield put(registrationActions.getUserData());
-    } else {
-      yield put(registrationActions.failedFetchingRegistration({ error: response.error }));
-    }
+    yield put(registrationActions.getUserData());
   } catch (error) {
-    yield put(registrationActions.failedFetchingRegistration({ error: null }));
+    const axiosError = error as AxiosError;
+
+    yield put(
+      registrationActions.failedFetchingRegistration({ errorStatusCode: axiosError.response?.status })
+    );
   }
 }

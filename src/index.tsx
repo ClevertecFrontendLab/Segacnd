@@ -8,7 +8,7 @@ import { Layout } from './components/layout';
 import { LayoutMainPage } from './components/layout-main-page';
 import { Terms } from './components/terms';
 import { Authorization } from './pages/authorization/auth-page';
-import { ForgotPass } from './pages/forgot-pass/forgot-pass-page';
+import { ForgotPassword } from './pages/forgot-password/forgot-password-page';
 import { MainPage } from './pages/main';
 import { Registration } from './pages/registration/registration-page';
 import { SinglePage } from './pages/single-page';
@@ -47,7 +47,7 @@ root.render(
           <Route element={<FormLayout />}>
             <Route path={routeNames.AUTH} element={<Authorization />} />
             <Route path={routeNames.REGISTRATION} element={<Registration />} />
-            <Route path={routeNames.FORGOT_PASSWORD} element={<ForgotPass />} />
+            <Route path={routeNames.FORGOT_PASSWORD} element={<ForgotPassword />} />
           </Route>
         </Routes>
       </HashRouter>

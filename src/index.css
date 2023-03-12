@@ -119,6 +119,9 @@ select {
 .swiper-slide > img {
   clip-path: inset(0% 0% 0% 0% round 5px);
 }
+button:hover{
+  cursor: pointer;
+}
 
 @media screen and (max-width: 1150px) {
   div.swiper,
@@ -135,8 +138,8 @@ select {
     clip-path: inset(0% 0% 0% 0% round 10px);
   }
 }
-mark {
-  color: rgba(255, 82, 83, 1);
+.markText {
+  color: rgba(244, 44, 79, 1);
   background-color: transparent;
 }
 
@@ -157,4 +160,15 @@ mark {
   line-height: 16px;
   letter-spacing: 0.2px;
   color: #fff;
+}
+
+@media screen and (max-width: 600px) {
+  .supportOrErrorText{
+    width: 356px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .supportOrErrorText{
+    width: 256px;
+  }
 }

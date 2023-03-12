@@ -28,3 +28,11 @@
     line-height: 40px;
     letter-spacing: 0.1px;
   }
+
+  @media screen and (max-width: 600px) {
+    .innerContent{
+        padding: 16px 24px ;
+    }
+    
+  }
+

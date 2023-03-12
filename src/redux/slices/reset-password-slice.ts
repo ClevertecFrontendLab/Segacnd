@@ -4,6 +4,7 @@ import { IResetPasswordRequest, ResetPassword, TStatus } from '../../interfases'
 
 const initialState: ResetPassword = {
   status: 'init',
+  resetData: null
 };
 
 export const ResetPasswordSlice = createSlice({
@@ -14,6 +15,7 @@ export const ResetPasswordSlice = createSlice({
       const st = state;
 
       st.status = 'loading';
+      st.resetData = action.payload.resetRequest;
     },
     getResetResponse(state, action: PayloadAction<{ status: TStatus }>) {
       const st = state;
@@ -24,6 +26,7 @@ export const ResetPasswordSlice = createSlice({
       const st = state;
 
       st.status = 'init';
+      st.resetData = null;
     },
   },
 });

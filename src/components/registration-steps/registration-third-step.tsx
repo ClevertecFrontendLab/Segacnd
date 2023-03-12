@@ -1,5 +1,4 @@
 import { Controller, useForm } from 'react-hook-form';
-import InputMask from 'react-input-mask';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { registrationActions } from '../../redux/slices/registration-slice';
@@ -24,7 +23,7 @@ export const RegistrationThirdStep = () => {
   const { data: formData } = useFormData();
   const dispatch = useAppDispatch();
 
-  const { handleSubmit, getFieldState, watch, reset, control, formState } = useForm<IFirstStep>({
+  const { handleSubmit, getFieldState, trigger, watch,reset, control, formState } = useForm<IFirstStep>({
     mode: 'all',
     resolver: yupResolver(registrationThirdStepSchema),
     criteriaMode: 'all',
@@ -34,10 +33,6 @@ export const RegistrationThirdStep = () => {
 
   const phoneState = getFieldState('phone', formState);
   const emailState = getFieldState('email', formState);
-  const phoneValue = watch('phone');
-  const emailValue = watch('email');
-
-  const { errors } = formState;
 
   const onSubmit = (data: IFirstStep) => {
     if (isFieldValid(phoneState) && isFieldValid(emailState)) {
@@ -50,7 +45,7 @@ export const RegistrationThirdStep = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='register-form' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         control={control}
         name='phone'
@@ -58,11 +53,11 @@ export const RegistrationThirdStep = () => {
         render={({ field, fieldState }) => (
           <PhoneInput
             inputid='phone'
+            triggerValidation={() => trigger('phone')}
             fieldState={fieldState}
             placeholder='Введите телефон'
             {...field}
             errorMessage='В формате +375 (xx) xxx-xx-xx'
-            errorStatus={errors?.phone?.message || ' '}
           />
         )}
       />
@@ -72,7 +67,13 @@ export const RegistrationThirdStep = () => {
         control={control}
         defaultValue=''
         render={({ field, fieldState }) => (
-          <Input {...field} placeholder='E-mail' inputid='email' value={emailValue} fieldState={fieldState} />
+          <Input
+            {...field}
+            triggerValidation={() => trigger('email')}
+            placeholder='E-mail'
+            inputid='email'
+            fieldState={fieldState}
+          />
         )}
       />
 

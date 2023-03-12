@@ -24,7 +24,7 @@ interface IRegistrationSecondStep {
 
 export const RegistrationSecondStep = ({ increaseStep }: IRegistrationSecondStep) => {
 
-  const { handleSubmit, getFieldState, watch, reset, control, formState } = useForm<IFirstStep>({
+  const { handleSubmit, getFieldState, trigger, reset, control, formState } = useForm<IFirstStep>({
     mode: 'all',
     resolver: yupResolver(registrationSecondStepSchema),
     criteriaMode: 'all',
@@ -34,8 +34,6 @@ export const RegistrationSecondStep = ({ increaseStep }: IRegistrationSecondStep
 
   const firstNameState = getFieldState('firstName', formState);
   const lastNameState = getFieldState('lastName', formState);
-  const firstNameValue = watch('firstName');
-  const lastNameValue = watch('lastName');
 
   const { setFormValues } = useFormData();
   const onSubmit = (data: IFirstStep) => {
@@ -50,7 +48,7 @@ export const RegistrationSecondStep = ({ increaseStep }: IRegistrationSecondStep
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='register-form' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name='firstName'
         control={control}
@@ -58,7 +56,7 @@ export const RegistrationSecondStep = ({ increaseStep }: IRegistrationSecondStep
         render={({ field, fieldState }) => (
           <Input
             {...field}
-            value={firstNameValue}
+            triggerValidation={() => trigger('firstName')}
             fieldState={fieldState}
             inputid='firstName'
             placeholder='Имя'
@@ -74,7 +72,7 @@ export const RegistrationSecondStep = ({ increaseStep }: IRegistrationSecondStep
           <Input
             fieldState={fieldState}
             {...field}
-            value={lastNameValue}
+            triggerValidation={() => trigger('lastName')}
             inputid='lastName'
             placeholder='Фамилия'
           />

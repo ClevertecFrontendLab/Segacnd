@@ -25,7 +25,7 @@ export interface IRegistrationFirstStep {
 export const RegistrationFirstStep = ({ increaseStep }: IRegistrationFirstStep) => {
   const { setFormValues } = useFormData();
 
-  const { handleSubmit, getFieldState, watch, reset, control, formState } = useForm<IFirstStep>({
+  const { handleSubmit, getFieldState, trigger, reset, control, formState } = useForm<IFirstStep>({
     mode: 'all',
     resolver: yupResolver(registrationFirstStepSchema),
     criteriaMode: 'all',
@@ -33,17 +33,8 @@ export const RegistrationFirstStep = ({ increaseStep }: IRegistrationFirstStep) 
 
   const isFieldValid = (field: FieldState) => field.isDirty && !field.invalid;
 
-  const { errors } = formState;
   const usernameState = getFieldState('username', formState);
   const passwordState = getFieldState('password', formState);
-  const userValue = watch('username');
-  const passValue = watch('password');
-
-  const passwordMinTextLength = errors.password?.types?.min || '';
-  const passwordErrorMessage = errors?.password?.types?.matches?.toString().replace(',', ' ') || '';
-  const userNameMessageErr = errors.username?.types?.matches?.toString().replace(',', ' ') || ' ';
-
-  const errorMessage = `${passwordMinTextLength} ${passwordErrorMessage}`
 
   const onSubmit = (data: IFirstStep) => {
     if (isFieldValid(usernameState) && isFieldValid(passwordState)) {
@@ -57,7 +48,7 @@ export const RegistrationFirstStep = ({ increaseStep }: IRegistrationFirstStep) 
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='register-form' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name='username'
         defaultValue=''
@@ -65,16 +56,14 @@ export const RegistrationFirstStep = ({ increaseStep }: IRegistrationFirstStep) 
         render={({ field, fieldState }) => (
           <Input
             {...field}
+            triggerValidation={() => trigger('username')}
             inputid='username'
-            value={userValue}
             fieldState={fieldState}
             placeholder='Придумайте логин для входа'
             errorMessage='Используйте для логина латинский алфавит и цифры'
-            errorStatus={userNameMessageErr}
           />
         )}
       />
-  
 
       <Controller
         name='password'
@@ -83,16 +72,15 @@ export const RegistrationFirstStep = ({ increaseStep }: IRegistrationFirstStep) 
         render={({ field, fieldState }) => (
           <PasswordInput
             {...field}
-            value={passValue}
+            triggerValidation={() => trigger('password')}
             fieldState={fieldState}
             inputid='password'
             placeholder='Пароль'
-            errorMessage='Пароль не менее 8 символов с заглавной буквой и цифрой'
-            errorStatus={errorMessage}
+            errorMessage='Пароль не менее 8 символов, с заглавной буквой и цифрой'
           />
         )}
       />
-      <FormButton value='следующий шаг' disabled={!formState.isValid && formState.isDirty}/>
+      <FormButton value='следующий шаг' disabled={!formState.isValid && formState.isDirty} />
     </form>
   );
 };

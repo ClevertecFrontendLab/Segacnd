@@ -1,21 +1,18 @@
-import { Controller, useForm } from 'react-hook-form';
-import InputMask, { ReactInputMask } from 'react-input-mask';
+import { ForwardedRef, ForwardRefExoticComponent } from 'react';
+import { Controller, FieldValues, useForm, UseFormTrigger } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
-import Cookies from 'js-cookie';
 
-import { Higlight } from '../../pages/book/highlight';
+import { authSelector } from '../../redux/selectors';
 import { authActions } from '../../redux/slices/authorization-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
 import { FormButton } from '../../ui/form-button/form-button';
 import { PasswordInput } from '../../ui/inputs/password-input/password-input';
-import { PhoneInput } from '../../ui/inputs/phone-input/phone-input';
-import { Input } from '../../ui/inputs/text-input/input';
+import { IInputProps, Input } from '../../ui/inputs/text-input/input';
 
+import { loginSchema } from './form-validation-scheme';
 
 import styles from './auth.module.css';
-import { loginSchema } from './form-validation-scheme';
-import { authSelector } from '../../redux/selectors';
 
 export interface LoginForm {
   identifier: string;
@@ -24,35 +21,36 @@ export interface LoginForm {
 
 export const AuthForm = () => {
   const dispatch = useAppDispatch();
-  const { error } = useAppSelector(authSelector);
+  const { errorStatusCode } = useAppSelector(authSelector);
 
-  const {
-    handleSubmit,
-    formState,
-    watch,
-    reset,
-    control,
-  } = useForm<LoginForm>({ mode: 'all', resolver: yupResolver(loginSchema), criteriaMode: 'all' });
-
-  const loginValue = watch('identifier');
-  const passValue = watch('password');
+  const { handleSubmit, formState, control, trigger } = useForm<LoginForm>({
+    mode: 'all',
+    resolver: yupResolver(loginSchema),
+    criteriaMode: 'all',
+  });
 
   const onSubmit = (data: LoginForm) => {
     dispatch(authActions.startFetchingAuth({ authDetails: data }));
   };
 
+  console.log('formState - ', formState)
+
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className={error?.status === 400 ? styles.uncorrectLogin : ''}>
+    <form
+      data-test-id='auth-form'
+      onSubmit={handleSubmit(onSubmit)}
+      className={errorStatusCode === 400 ? styles.uncorrectLogin : ''}
+    >
       <Controller
         name='identifier'
         control={control}
         defaultValue=''
         render={({ field, fieldState }) => (
           <Input
+            triggerValidation={() => trigger('identifier')}
             fieldState={fieldState}
             {...field}
             inputid='identifier'
-            value={loginValue}
             placeholder='Логин'
           />
         )}
@@ -64,18 +62,20 @@ export const AuthForm = () => {
         render={({ field, fieldState }) => (
           <PasswordInput
             fieldState={fieldState}
+            triggerValidation={() => trigger('password')}
             {...field}
-            placeholder='Пароль'
             inputid='password'
-            value={passValue}
+            placeholder='Пароль'
             showValidCheck={false}
           />
         )}
       />
 
-      {error?.status === 400 ? (
+      {errorStatusCode === 400 ? (
         <div>
-          <p className={styles.errorText}>Неверный логин или пароль!</p>
+          <p data-test-id='hint' className={styles.errorText}>
+            Неверный логин или пароль!
+          </p>
           <Link className={styles.redirectLink} to='/forgot-pass'>
             Восстановить?
           </Link>

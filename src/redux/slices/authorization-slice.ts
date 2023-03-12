@@ -6,7 +6,8 @@ const initialState: IAuthState = {
   user: null,
   error: null,
   status: 'init',
-  authDetails: null
+  authDetails: null,
+  errorStatusCode: undefined
 };
 
 export const AuthSlice = createSlice({
@@ -33,16 +34,16 @@ export const AuthSlice = createSlice({
       st.authDetails = null;
       st.status = 'init';
     },
-    failedFetchingAuth(state, action: PayloadAction<{ error: AuthError | null }>) {
+    failedFetchingAuth(state, action: PayloadAction<{ errorStatusCode?: number }>) {
       const st = state;
 
-      st.error = action.payload.error;
+      st.errorStatusCode = action.payload.errorStatusCode;
       st.status = 'error';
     },
     resetError(state) {
       const st = state;
 
-      st.error = null;
+      st.errorStatusCode = undefined;
       st.status = 'init';
     }
   },

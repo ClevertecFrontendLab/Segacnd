@@ -18,7 +18,7 @@ export const ForgotPassForm = () => {
   const dispatch = useAppDispatch();
   const requestErrorMessage = status === 'error' ? status : '';
 
-  const { handleSubmit, control, formState } = useForm<MailForm>({
+  const { handleSubmit, control, formState, trigger } = useForm<MailForm>({
     mode: 'all',
     resolver: yupResolver(forgotPasswordSchema),
     criteriaMode: 'all',
@@ -29,14 +29,15 @@ export const ForgotPassForm = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form data-test-id='send-email-form' onSubmit={handleSubmit(onSubmit)}>
       <Controller
         name='email'
         control={control}
         render={({ field, fieldState }) => (
           <Input
+            triggerValidation={() => trigger('email')}
             fieldState={fieldState}
-            errorMessage={requestErrorMessage}
+            requestErrorMessage={requestErrorMessage}
             {...field}
             placeholder='Email'
             inputid='email'

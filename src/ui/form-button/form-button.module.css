@@ -10,8 +10,10 @@
     line-height: 150%;
     color: #fff;
     text-transform: uppercase;
+    margin-top:  16px;
 }
 .disabledButton{
+    margin-top:  16px;
     background: #EBEBEB;
     border-radius: 30px;
     outline: none;

@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+import arrowIconRegistration from '../../assets/images/icons/arrowIconRegistration.svg';
 import { AuthForm } from '../../components/forms/auth-form';
 import { FormStatusModal } from '../../components/forms/form-status-modal';
 import { authSelector } from '../../redux/selectors';
@@ -10,7 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../redux/store';
 import styles from './auth-page.module.css';
 
 export const Authorization = () => {
-  const { error, status, authDetails } = useAppSelector(authSelector);
+  const { errorStatusCode, status, authDetails } = useAppSelector(authSelector);
   const dispatch = useAppDispatch();
 
   const location = useLocation();
@@ -25,7 +26,7 @@ export const Authorization = () => {
     }
   }, [authDetails, dispatch]);
 
-  if (status === 'error' && error?.status !== 400) {
+  if (status === 'error' && errorStatusCode !== 400) {
     return (
       <FormStatusModal
         title='Вход не выполнен'
@@ -40,10 +41,11 @@ export const Authorization = () => {
     <div className={styles.root}>
       <h3>Вход в личный кабинет</h3>
       <AuthForm />
-      <div>
+      <div className={styles.redirectWrapper}>
         <span>Нет учётной записи?</span>
         <Link className={styles.redirectLink} to='/registration'>
           Регистрация
+          <img src={arrowIconRegistration} alt='arrow icon' />
         </Link>
       </div>
     </div>

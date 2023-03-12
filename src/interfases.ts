@@ -136,11 +136,12 @@ export interface IAuthState {
   error: AuthError | null;
   status: TStatus;
   authDetails: IUserAuth | null;
+  errorStatusCode?: number;
 }
 export interface IRegistrationState {
-
-  error: AuthError | null;
+  registrationData: IRegistrationData | null;
   status: TStatus;
+  errorStatusCode?: number;
 }
 
 
@@ -151,6 +152,7 @@ export interface IAuthResponse {
 
 export interface IAuthErrorResponse {
   error: AuthError;
+  errorStatusCode: number;
 }
 export interface IRegistrationData {
   email: string;
@@ -162,7 +164,6 @@ export interface IRegistrationData {
 }
 
 export interface IForgotPasswordState{
-  ok: boolean;
   status: TStatus;
 }
 
@@ -175,4 +176,5 @@ export interface IResetPasswordRequest {
 
 export interface ResetPassword {
   status: TStatus;
+  resetData: IResetPasswordRequest | null;
 }

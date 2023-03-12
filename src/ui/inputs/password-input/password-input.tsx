@@ -24,12 +24,12 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, IPasswordInput>(
     <div className={styles.root}>
       <Input {...otherProps} value={value} fieldState={fieldState} placeholder={placeholder} ref={ref} type={isHidden ? 'password' : 'text'} />
       {(!fieldState.invalid && fieldState.isDirty && showValidCheck) && (
-        <div className={styles.showHideApprove}>
+        <div data-test-id='checkmark' className={styles.showHideApprove}>
           <img src={CorrectPassIcon} alt='' />
         </div>
       )}
       {value && (
-        <div onClick={showPass} aria-hidden='true' className={styles.showHidePass}>
+        <div data-test-id={isHidden ? 'eye-closed' : 'eye-opened'} onClick={showPass} aria-hidden='true' className={styles.showHidePass}>
           <img src={isHidden ? EyeCloseIcon : EyeOpenIcon} alt='' />
         </div>
       )}

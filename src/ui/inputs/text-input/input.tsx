@@ -1,5 +1,5 @@
-import React, { SyntheticEvent, useState } from 'react';
-import { FieldError } from 'react-hook-form';
+import React, { SyntheticEvent, useEffect, useState } from 'react';
+import { FieldError, FieldValues, UseFormTrigger } from 'react-hook-form';
 
 import { Higlight } from '../../../pages/book/highlight';
 
@@ -9,17 +9,18 @@ interface FocusEvent<T = Element> extends SyntheticEvent<T> {
   relatedTarget: EventTarget | null;
   target: EventTarget & T;
 }
-
 export interface IInputProps {
-  fieldState: { isDirty: boolean; invalid: boolean; error?: FieldError };
+  fieldState: { isTouched: boolean; invalid: boolean; error?: FieldError, isDirty: boolean };
   placeholder?: string;
   value?: string | number;
-  inputid?: string;
+  inputid: string;
   type?: string;
   errorMessage?: string;
-  errorStatus?: string;
+  requestErrorMessage?: string;
   infoMessage?: string;
+  triggerValidation: () => void;
   onFocus?: (e: FocusEvent<HTMLInputElement>) => void;
+  onBlur?: (e: FocusEvent<HTMLInputElement>) => void;
 }
 
 export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref) => {
@@ -27,15 +28,36 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref
 
   const {
     placeholder,
-    fieldState: { invalid, isDirty, error },
+    fieldState: { invalid, error, isTouched },
     errorMessage,
-    errorStatus,
     infoMessage,
+    triggerValidation,
     onFocus,
+    onBlur,
+    inputid,
+    requestErrorMessage,
     ...otherProps
   } = props;
 
+  const errorStatusTest: string[] = Object.entries(error?.types || [])
+    .filter(entry => entry[0] !== 'required').map((i) => (Array.isArray(i[1]) ? i[1] : [i[1]]))
+    .flat() || [];
+
   const fieldCheck = invalid && !isNameInputActive;
+
+  const showRequiredError = !!error?.types?.required && !isNameInputActive;
+
+  const handleOnBlur = (e: FocusEvent<HTMLInputElement>) => {
+    setIsInputActive(false);
+
+    if (triggerValidation && inputid) {
+      triggerValidation();
+    }
+
+    if (onBlur) {
+      onBlur(e);
+    }
+  };
 
   const handleOnFocus = (e: FocusEvent<HTMLInputElement>) => {
     setIsInputActive(true);
@@ -47,7 +69,13 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref
 
   return (
     <React.Fragment>
-      <div className={fieldCheck ? `${styles.errorBorder} ${styles.root}` : `${styles.defaultBorder} ${styles.root}`}>
+      <div className={fieldCheck ? `${styles.errorBorder} ${styles.root}` : `${styles.root}`}>
+        <label
+          className={isNameInputActive || props.value ? `${styles.active}` : `${styles.label}`}
+          htmlFor={props.inputid}
+        >
+          {placeholder}
+        </label>
         <input
           ref={ref}
           type='text'
@@ -55,20 +83,14 @@ export const Input = React.forwardRef<HTMLInputElement, IInputProps>((props, ref
           {...otherProps}
           id={props.inputid}
           onFocus={handleOnFocus}
-          onBlur={() => setIsInputActive(false)}
+          onBlur={handleOnBlur}
         />
-        <label
-          className={isNameInputActive || props.value ? `${styles.active}` : `${styles.labe}`}
-          htmlFor={props.inputid}
-        >
-          {placeholder}
-        </label>
       </div>
-      <div className={fieldCheck ? `${styles.errorMessage} ` : ' supportOrErrorText'}>
-        {errorMessage && errorStatus ? (
-          <Higlight text={errorMessage} query={errorStatus} />
+      <div data-test-id='hint' className={fieldCheck || requestErrorMessage ? `${styles.errorMessage} ` : ' supportOrErrorText'}>
+        {!showRequiredError && !error?.types?.notOneOf && errorMessage && errorStatusTest.length ? (
+          <Higlight text={errorMessage} query={errorStatusTest} />
         ) : (
-          <span className={errorMessage ? `${styles.errorMessage} ` : ''}>{error?.message || errorMessage}</span>
+          isNameInputActive && !errorMessage ? '' : error?.message || errorMessage || requestErrorMessage
         )}
       </div>
       {infoMessage && <p className={styles.infoMessage}>{infoMessage}</p>}

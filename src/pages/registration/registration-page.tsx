@@ -1,24 +1,20 @@
-import React, { useCallback, useState } from 'react';
+import { useCallback, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { useFormData } from '../../components/forms/context/registration-context';
+import arrowIconRegistration from '../../assets/images/icons/arrowIconRegistration.svg';
 import { FormStatusModal } from '../../components/forms/form-status-modal';
 import { RegistrationForm } from '../../components/forms/registration-form';
 import { registrationSelector } from '../../redux/selectors';
 import { registrationActions } from '../../redux/slices/registration-slice';
 import { useAppDispatch, useAppSelector } from '../../redux/store';
-import { FormButton } from '../../ui/form-button/form-button';
-import { PasswordInput } from '../../ui/inputs/password-input/password-input';
-import { Input } from '../../ui/inputs/text-input/input';
 
 import styles from './registration-page.module.css';
 
 export const Registration = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
-  const { status, error } = useAppSelector(registrationSelector);
+  const { status, errorStatusCode, registrationData } = useAppSelector(registrationSelector);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { data: formData } = useFormData();
 
   const redirectToLogin = useCallback(() => {
     navigate('/auth');
@@ -26,8 +22,10 @@ export const Registration = () => {
   }, [navigate, dispatch]);
 
   const tryAgain = useCallback(() => {
-    dispatch(registrationActions.startFetchingRegistration({ registrationDetails: formData }));
-  }, [formData, dispatch]);
+    if (registrationData) {
+      dispatch(registrationActions.startFetchingRegistration({ registrationDetails: registrationData }));
+    }
+  }, [registrationData, dispatch]);
 
   const registrationAgain = useCallback(() => {
     setCurrentStep(0);
@@ -45,7 +43,7 @@ export const Registration = () => {
     );
   }
 
-  if (status === 'error' && error?.status === 400) {
+  if (status === 'error' && errorStatusCode === 400) {
     return (
       <FormStatusModal
         title='Данные не сохранились'
@@ -79,10 +77,11 @@ export const Registration = () => {
       <h5>{currentStep + 1} шаг из 3</h5>
       <RegistrationForm currentStep={currentStep} handleStep={increaseStep} />
 
-      <div>
+      <div className={styles.redirectWrapper}>
         <span>Есть учётная запись?</span>
         <Link className={styles.redirectLink} to='/auth'>
           Войти
+          <img src={arrowIconRegistration} alt='arrow icon' />
         </Link>
       </div>
     </div>

@@ -16,7 +16,7 @@ defaultRequest.interceptors.request.use(
       const token = Cookies.get('jwt');
 
       if (token) {
-        authConfig.headers.Authorization = `Bearer ${token}`;
+        authConfig.headers.authorization = `Bearer ${token}`;
       }
     }  
 

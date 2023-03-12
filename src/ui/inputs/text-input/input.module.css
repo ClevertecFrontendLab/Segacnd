@@ -2,6 +2,9 @@
   position: relative;
   border-bottom: 1px solid #bfc4c9;
   margin-bottom: 2px;
+  margin-top: 16px;
+  width: fit-content;
+  background: #f9f9fa;
 }
 .root input {
   font-weight: 400;
@@ -9,18 +12,21 @@
   line-height: 18px;
   letter-spacing: 0.1px;
   color: #363636;
-  background: #f9f9fa;
+  background: transparent;
   border: none;
   padding: 26px 12px 12px 12px;
   outline: none;
   width: 410px;
+  z-index: 2;
+  position: relative;
 }
 
-.labe {
+.label {
   position: absolute;
   left: 12px;
   top: 19px;
   transition: ease-in-out 0.3s;
+  z-index: 1;
 }
 .active {
   position: absolute;
@@ -48,13 +54,19 @@
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
-  /* identical to box height, or 133% */
   margin-left: 12px;
   letter-spacing: 0.2px;
-  /* margin-bottom: 18px; */
 }
 
-.infoMessage{
+.simplyErrorMessage {
+  color: #f42c4f;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.2px;
+}
+
+.infoMessage {
   font-weight: 500;
   font-size: 12px;
   line-height: 16px;
@@ -62,4 +74,22 @@
   color: #727272;
   width: 410px;
   word-wrap: break-word;
+}
+
+@media screen and (max-width: 600px) {
+  .infoMessage,
+  .errorMessage,
+  .simplyErrorMessage,
+  .root input {
+    width: 356px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .infoMessage,
+  .errorMessage,
+  .simplyErrorMessage,
+  .root input {
+    width: 286px;
+  }
 }
